@@ -15,9 +15,9 @@ import tempfile
 import subprocess
 import time
 
-# ----------------- СОВМЕСТИМОСТЬ ПЕРЕЗАГРУЗКИ -----------------
+# ----------------- СОВМЕСТИМОСТЬ ПЕРЕЗАГРУЗКИ (Қатені түзеу) -----------------
 def safe_rerun():
-    """Умная функция перезагрузки для совместимости с любыми версиями Streamlit"""
+    """Умная функция перезагрузки для совместимости со старыми и новыми версиями Streamlit"""
     if hasattr(st, "rerun"):
         st.rerun()
     elif hasattr(st, "experimental_rerun"):
@@ -46,7 +46,6 @@ locales = {
     "ru": {
         "title": "📝 Умный генератор научных статей",
         "subtitle": "Вестник ЕНУ им. Л.Н. Гумилева · Химия / География · 2025",
-        "sidebar_lang": "🌍 Язык интерфейса",
         "btn_theme_dark": "🌙 Тёмная тема",
         "btn_theme_light": "☀️ Светлая тема",
         "nav_gen": "📄 Генератор статей",
@@ -136,7 +135,6 @@ locales = {
     "kz": {
         "title": "📝 Ғылыми мақалалардың ақылды генераторы",
         "subtitle": "Л.Н. Гумилев атындағы ЕҰУ Хабаршысы · Химия / География · 2025",
-        "sidebar_lang": "🌍 Интерфейс тілі",
         "btn_theme_dark": "🌙 Түнгі режим",
         "btn_theme_light": "☀️ Күндізгі режим",
         "nav_gen": "📄 Мақала генераторы",
@@ -226,7 +224,6 @@ locales = {
     "en": {
         "title": "📝 Smart Paper Generator",
         "subtitle": "L.N. Gumilyov ENU Bulletin · Chemistry / Geography · 2025",
-        "sidebar_lang": "🌍 Language",
         "btn_theme_dark": "🌙 Dark mode",
         "btn_theme_light": "☀️ Light mode",
         "nav_gen": "📄 Paper Generator",
@@ -317,66 +314,154 @@ locales = {
 
 l = locales[st.session_state.lang]
 
-# ----------------- THEME CSS FROM CHECKER -----------------
-dark_css = (
-    "<style>"
-    "html,body,[class*='css'],.stApp{background-color:#0d1b2e !important;color:#c9d8ee !important;"
-    "font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif !important;}"
-    "h1,h2,h3,h4,h5,h6,[data-testid='stMarkdownContainer'] h1,[data-testid='stMarkdownContainer'] h2,"
-    "[data-testid='stMarkdownContainer'] h3{color:#e2edf7 !important;font-weight:600 !important;}"
-    "p,span,label,div,li,[data-testid='stMarkdownContainer'] p,"
-    "[data-testid='stCaptionContainer'],.stCaption{color:#c9d8ee !important;}"
-    "[data-testid='block-container'],[data-testid='stVerticalBlock'],"
-    "section[data-testid='stSidebar']{background-color:#0d1b2e !important;}"
-    "[data-testid='stMetric']{background:#0f2340 !important;border:1px solid #1e3a5f !important;"
-    "border-radius:6px !important;padding:12px 16px !important;}"
-    "[data-testid='stMetricValue']{color:#e2edf7 !important;}"
-    "[data-testid='stMetricLabel']{color:#7b96b8 !important;}"
-    ".stButton>button{background-color:#0f2340 !important;color:#c9d8ee !important;"
-    "border:1px solid #1e3a5f !important;border-radius:6px !important;}"
-    ".stButton>button:hover{background-color:#1e3a5f !important;color:#e2edf7 !important;}"
-    "[data-testid='stDownloadButton']>button{background-color:#238636 !important;color:#fff !important;"
-    "border:1px solid #2ea043 !important;border-radius:6px !important;}"
-    "[data-testid='stDownloadButton']>button:hover{background-color:#2ea043 !important;}"
-    "[data-testid='stFileUploader']{background-color:#0f2340 !important;border-radius:8px !important;}"
-    "[data-testid='stFileUploaderDropzone']{background-color:#0f2340 !important;"
-    "border:2px dashed #1e3a5f !important;border-radius:8px !important;padding:24px 16px !important;}"
-    "[data-testid='stFileUploaderDropzone']:hover{background-color:#112850 !important;border-color:#2f5f9e !important;}"
-    "[data-testid='stFileUploader'] *,[data-testid='stFileUploaderDropzone'] *{color:#c9d8ee !important;}"
-    "[data-testid='stFileUploaderDropzone'] button{background-color:#1e3a5f !important;"
-    "color:#c9d8ee !important;border:1px solid #2f5f9e !important;border-radius:6px !important;"
-    "padding:5px 16px !important;font-size:13px !important;font-weight:500 !important;}"
-    "[data-testid='stFileUploaderDropzone'] button:hover{background-color:#2f5f9e !important;"
-    "border-color:#58a6ff !important;color:#e2edf7 !important;}"
-    "[data-testid='stFileUploaderFile']{background-color:#112240 !important;"
-    "border:1px solid #1e3a5f !important;border-radius:6px !important;}"
-    "[data-testid='stFileUploaderDeleteBtn'] button{color:#7b96b8 !important;}"
-    "[data-testid='stFileUploaderDeleteBtn'] button:hover{color:#f85149 !important;}"
-    "[data-testid='stDataFrame'],.stDataFrame iframe{border:1px solid #1e3a5f !important;"
-    "border-radius:8px !important;overflow:hidden !important;"
-    "box-shadow:0 2px 8px rgba(0,0,0,0.4) !important;}"
-    "[data-testid='stAlert']{background-color:#0f2340 !important;border:1px solid #1f6feb !important;"
-    "color:#c9d8ee !important;border-radius:6px !important;}"
-    ".stSpinner>div{color:#c9d8ee !important;}"
-    "hr{border-color:#1e3a5f !important;}"
-    "input,textarea,select{background-color:#0f2340 !important;color:#c9d8ee !important;"
-    "border:1px solid #1e3a5f !important;}"
-    "[data-testid='stSelectbox']>div>div{background-color:#0f2340 !important;"
-    "border:1px solid #1e3a5f !important;border-radius:6px !important;color:#c9d8ee !important;}"
-    "</style>"
-)
+# ----------------- THEME & CSS -----------------
+font_mapping = {
+    "System Default": "-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif",
+    "Times New Roman": "'Times New Roman', Times, serif",
+    "Arial": "Arial, Helvetica, sans-serif",
+    "Georgia": "Georgia, serif"
+}
+selected_css_font = font_mapping.get(st.session_state.ui_font, font_mapping["System Default"])
 
-light_css = (
-    "<style>"
-    "[data-testid='stMetric']{background:#fff;padding:12px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.08);}"
-    "h1,h2,h3{color:#1a3a5c;}"
-    "[data-testid='stDownloadButton']>button{background-color:#2ea043;color:#fff;border-radius:6px;}"
-    "[data-testid='stDataFrame'],.stDataFrame iframe{border:1px solid #d0d7de;"
-    "border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);}"
-    "</style>"
-)
+css_core = f"""
+<style>
+/* Global Font */
+* {{ font-family: {selected_css_font} !important; }}
+
+/* Скрываем пустые контейнеры, чтобы убрать артефакты в левом верхнем углу (empty gap) */
+div.element-container:has(style) {{ display: none !important; height: 0 !important; margin: 0 !important; }}
+
+.stApp p, .stApp div[data-testid="stMarkdownContainer"] {{ text-align: justify !important; }}
+
+/* 1. БОЛЬШИЕ ЗАГРУЗЧИКИ ДЛЯ IMRAD */
+[data-testid="stFileUploadDropzone"] {{
+    border: 2px dashed #4a90e2 !important; 
+    border-radius: 12px !important;
+    padding: 24px !important; 
+    text-align: center !important;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+}}
+[data-testid="stFileUploadDropzone"] > div > svg {{ display: none !important; }}
+[data-testid="stFileUploadDropzone"]::before {{ 
+    content: "☁️"; font-size: 44px; display: block; margin-bottom: 5px; 
+}}
+[data-testid="stFileUploadDropzone"] div[data-testid="stText"] {{ font-size: 0 !important; }}
+[data-testid="stFileUploadDropzone"] div[data-testid="stText"]::after {{
+    content: "{l['drag_drop']}"; 
+    font-size: 14px !important; color: #888888 !important; 
+    display: block; white-space: pre-wrap; margin-top: 5px; margin-bottom: 15px;
+}}
+[data-testid="stFileUploadDropzone"] button {{ 
+    color: transparent !important; position: relative; background-color: transparent !important;
+    border: 1px solid #4a90e2 !important; border-radius: 6px !important;
+    box-shadow: none !important; padding: 5px 20px !important; min-height: 38px !important;
+}}
+[data-testid="stFileUploadDropzone"] button::after {{
+    content: "{l['browse_files']}"; color: #4a90e2 !important; 
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); 
+    visibility: visible; font-weight: 600; font-size: 14px; white-space: nowrap; 
+}}
+
+/* ИСПРАВЛЕНИЕ ЛЕВОГО ВЕРХНЕГО УГЛА (Selectbox) - сохраняем стрелочку */
+[data-baseweb="select"] input {{ caret-color: transparent !important; }}
+div[data-baseweb="select"] > div > div > div[style*="width: 1px"],
+div[data-baseweb="select"] > div > div > div[style*="background-color"] {{ display: none !important; }}
+
+/* 2. КОМПАКТНЫЕ ЗАГРУЗЧИКИ ДЛЯ ТАБЛИЦ И РИСУНКОВ */
+div.element-container:has(.compact-uploader) {{
+    display: none !important; height: 0px !important; margin: 0px !important; padding: 0px !important;
+}}
+div.element-container:has(.compact-uploader) + div.element-container [data-testid="stFileUploadDropzone"] {{
+    padding: 0 !important; min-height: 40px !important; height: 40px !important;
+    border: 1px dashed #94a3b8 !important; border-radius: 6px !important;
+    display: flex; align-items: center; justify-content: center; flex-direction: row;
+    background-color: transparent !important; margin: 0 !important;
+}}
+div.element-container:has(.compact-uploader) + div.element-container [data-testid="stFileUploadDropzone"]::before {{ display: none !important; }}
+div.element-container:has(.compact-uploader) + div.element-container [data-testid="stFileUploadDropzone"] div[data-testid="stText"] {{ display: none !important; }}
+div.element-container:has(.compact-uploader) + div.element-container [data-testid="stFileUploadDropzone"] button {{ 
+    margin: 0 !important; width: 100% !important; height: 100% !important; 
+    display: flex !important; align-items: center !important; justify-content: center !important;
+    background: transparent !important; border: none !important; padding: 0 !important;
+}}
+div.element-container:has(.compact-uploader) + div.element-container [data-testid="stFileUploadDropzone"] button::after {{
+    content: "{l['btn_upload_short']}" !important;
+    font-size: 13px !important; color: #64748b !important; font-weight: 500 !important;
+    position: static !important; transform: none !important;
+}}
+
+/* Segmented Control Base */
+div[data-testid="stRadio"] {{ display: flex; justify-content: center; margin-bottom: 1rem; }}
+div[data-testid="stRadio"] div[role="radiogroup"] {{ border-radius: 20px !important; padding: 4px !important; display: inline-flex !important; gap: 4px !important; }}
+div[data-testid="stRadio"] div[role="radiogroup"] label {{ background-color: transparent !important; padding: 8px 24px !important; border-radius: 16px !important; font-weight: 500 !important; cursor: pointer !important; border: none !important; transition: all 0.2s; margin:0 !important; }}
+div[data-testid="stRadio"] div[role="radio"] {{ display: none !important; }}
+</style>
+"""
+
+dark_css = css_core + """
+<style>
+html,body,[class*='css'],.stApp{background-color:#0d1b2e !important;color:#c9d8ee !important;}
+h1,h2,h3,h4,h5,h6,[data-testid='stMarkdownContainer'] h1,[data-testid='stMarkdownContainer'] h2,[data-testid='stMarkdownContainer'] h3{color:#e2edf7 !important;font-weight:600 !important;}
+p,span,label,div,li,[data-testid='stMarkdownContainer'] p,[data-testid='stCaptionContainer'],.stCaption{color:#c9d8ee !important;}
+[data-testid='block-container'],[data-testid='stVerticalBlock'],section[data-testid='stSidebar']{background-color:#0d1b2e !important;}
+.stButton>button{background-color:#0f2340 !important;color:#c9d8ee !important;border:1px solid #1e3a5f !important;border-radius:6px !important;}
+.stButton>button:hover{background-color:#1e3a5f !important;color:#e2edf7 !important;}
+[data-testid='stDownloadButton']>button{background-color:#238636 !important;color:#fff !important;border:1px solid #2ea043 !important;}
+[data-testid='stDownloadButton']>button:hover{background-color:#2ea043 !important;}
+[data-testid='stFileUploader']{background-color:#0f2340 !important;}
+[data-testid='stFileUploaderDropzone']{background-color:#0f2340 !important;}
+[data-testid='stFileUploaderDropzone']:hover{background-color:#112850 !important;}
+[data-testid='stFileUploader'] *,[data-testid='stFileUploaderDropzone'] *{color:#c9d8ee !important;}
+[data-testid='stDataFrame'],.stDataFrame iframe{border:1px solid #1e3a5f !important;border-radius:8px !important;}
+input,textarea,select{background-color:#0f2340 !important;color:#c9d8ee !important;border:1px solid #1e3a5f !important;}
+[data-testid='stSelectbox']>div>div{background-color:#0f2340 !important;border:1px solid #1e3a5f !important;border-radius:6px !important;color:#c9d8ee !important;}
+
+/* Segmented control specific dark */
+div[data-testid="stRadio"] div[role="radiogroup"] { background-color: #0f1c34 !important; border: 1px solid #1d3354 !important; }
+div[data-testid="stRadio"] div[role="radiogroup"] label { color: #64748b !important; }
+div[data-testid="stRadio"] div[role="radiogroup"] label:has(div[aria-checked="true"]) { background-color: #4a90e2 !important; color: #ffffff !important; box-shadow: 0 2px 5px rgba(0,0,0,0.3) !important; font-weight: 600 !important; }
+</style>
+"""
+
+light_css = css_core + """
+<style>
+.stApp { background-color: #ffffff !important; }
+h1,h2,h3{color:#1a3a5c;}
+[data-testid='stDownloadButton']>button{background-color:#2ea043;color:#fff;border-radius:6px;}
+[data-testid='stDataFrame'],.stDataFrame iframe{border:1px solid #d0d7de;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+
+/* Segmented control specific light */
+div[data-testid="stRadio"] div[role="radiogroup"] { background-color: #f1f3f4 !important; border: none !important; }
+div[data-testid="stRadio"] div[role="radiogroup"] label { color: #5f6368 !important; }
+div[data-testid="stRadio"] div[role="radiogroup"] label:has(div[aria-checked="true"]) { background-color: #ffffff !important; color: #1a1a1a !important; box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important; font-weight: 600 !important; }
+</style>
+"""
 
 st.markdown(dark_css if st.session_state.theme == "dark" else light_css, unsafe_allow_html=True)
+
+# ----------------- HEADER (БАСТЫ БЕТТЕГІ ТІЛ ЖӘНЕ ТЕМА) -----------------
+hc1, hc2, hc3 = st.columns([6, 1.8, 1.8])
+with hc1:
+    st.title(l["title"])
+    st.caption(l["subtitle"])
+with hc2:
+    _lang_labels = {"kz": "🇰🇿 Қазақша", "ru": "🇷🇺 Русский", "en": "🇬🇧 English"}
+    _lang_keys   = list(_lang_labels.keys())
+    _sel = st.selectbox(
+        "lang", _lang_keys,
+        index=_lang_keys.index(st.session_state.lang),
+        format_func=lambda x: _lang_labels[x],
+        label_visibility="collapsed",
+    )
+    if _sel != st.session_state.lang:
+        st.session_state.lang = _sel
+        safe_rerun()
+with hc3:
+    _tbtn = l["btn_theme_light"] if st.session_state.theme == "dark" else l["btn_theme_dark"]
+    if st.button(_tbtn, use_container_width=True):
+        st.session_state.theme = "light" if st.session_state.theme == "dark" else "dark"
+        safe_rerun()
+st.markdown("---")
 
 # ----------------- HELPERS -----------------
 def extract_text(uploaded_file):
@@ -528,36 +613,8 @@ def convert_to_pdf(docx_path, pdf_path):
         pass
     return False
 
-# ----------------- SIDEBAR: LANGUAGE & THEME -----------------
-with st.sidebar:
-    st.markdown(f"### {l['sidebar_lang']}")
-    col_f1, col_f2, col_f3 = st.columns(3)
 
-    if col_f1.button("🇰🇿", use_container_width=True):
-        st.session_state.lang = "kz"
-        safe_rerun()
-
-    if col_f2.button("🇷🇺", use_container_width=True):
-        st.session_state.lang = "ru"
-        safe_rerun()
-
-    if col_f3.button("🇬🇧", use_container_width=True):
-        st.session_state.lang = "en"
-        safe_rerun()
-
-    st.markdown("---")
-
-    _tbtn = l["btn_theme_light"] if st.session_state.theme == "dark" else l["btn_theme_dark"]
-    if st.button(_tbtn, use_container_width=True):
-        st.session_state.theme = "light" if st.session_state.theme == "dark" else "dark"
-        safe_rerun()
-    st.markdown("---")
-
-# ----------------- HEADER -----------------
-st.title(l["title"])
-st.caption(l["subtitle"])
-st.markdown("---")
-
+# ----------------- TABS NAVIGATION -----------------
 if "nav_radio" not in st.session_state or st.session_state.nav_radio not in [l["nav_gen"], l["nav_reg"]]:
     st.session_state.nav_radio = l["nav_gen"]
 if st.session_state.get("go_to_gen"):
@@ -571,7 +628,9 @@ st.markdown("---")
 
 is_locked = not st.session_state.is_registered
 
-# ----------------- GENERATOR MODE -----------------
+# ======================================================================
+# GENERATOR MODE
+# ======================================================================
 if app_mode == l["nav_gen"]:
     if is_locked:
         st.error(l["reg_req_msg"], icon="🔒")
@@ -596,12 +655,6 @@ if app_mode == l["nav_gen"]:
         mrnti = st.text_input(l["lbl_mrnti"], value="06.81.23",
                               disabled=is_locked)
     with col_s5:
-        font_mapping = {
-            "System Default": "sans-serif",
-            "Times New Roman": "'Times New Roman', Times, serif",
-            "Arial": "Arial, Helvetica, sans-serif",
-            "Georgia": "Georgia, serif"
-        }
         new_font = st.selectbox(
             l["lbl_ui_font"],
             list(font_mapping.keys()),
@@ -1084,7 +1137,9 @@ if app_mode == l["nav_gen"]:
                     st.error(f"{l['err_gen']} {e}")
                     st.info("💡 Ескерту: шаблон .docx файлдары папкада болуы тиіс.")
 
-# ----------------- REGISTRATION MODE -----------------
+# ======================================================================
+# REGISTRATION MODE
+# ======================================================================
 elif app_mode == l["nav_reg"]:
     st.header(l["reg_header"])
     if st.session_state.is_registered:
@@ -1137,7 +1192,6 @@ with st.sidebar:
     if (os.path.exists("generation_logs.csv") or
             os.path.exists("registered_users.csv") or
             os.path.exists("user_feedback.csv")):
-        st.markdown("<br><br>", unsafe_allow_html=True)
         st.caption("🔒 Admin panel")
         if os.path.exists("generation_logs.csv"):
             with open("generation_logs.csv", "rb") as f:
