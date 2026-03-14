@@ -43,17 +43,20 @@ locales = {
         "lbl_affil": "Аффилиации (Место работы/учебы)",
         "lbl_affil_help": "1 Университет, Город, Страна; email",
         "lbl_email": "Email для корреспонденции",
-        "sec_text": "2. Текст статьи (IMRAD Файлы)",
+        "sec_text": "2. Текст статьи (Загрузка IMRAD)",
         "lbl_abstract": "Аннотация (до 300 слов)",
         "lbl_kw": "Ключевые слова",
         "lbl_kw_help": "Слово 1; слово 2; слово 3 (от 3 до 10 слов)",
-        "lbl_intro": "Введение (.txt или .docx)",
-        "lbl_methods": "Материалы и методы (.txt или .docx)",
-        "lbl_results": "Результаты (.txt или .docx)",
-        "lbl_conclusion": "Заключение (.txt или .docx)",
-        "lbl_ref_manager": "📚 Смарт-менеджер литературы",
+        "lbl_intro": "Введение (.txt/.docx)",
+        "lbl_methods": "Материалы и методы (.txt/.docx)",
+        "lbl_results": "Результаты (.txt/.docx)",
+        "lbl_discussion": "Обсуждение (.txt/.docx)",
+        "lbl_conclusion": "Заключение (.txt/.docx)",
+        "lbl_ref_manager": "📚 Менеджер литературы",
         "lbl_ref_style": "Стиль цитирования",
-        "lbl_fig_manager": "📊 Смарт-менеджер рисунков и таблиц",
+        "lbl_fig_manager": "📊 Менеджер рисунков",
+        "lbl_tab_manager": "📋 Менеджер таблиц",
+        "lbl_samples": "📥 Скачать шаблоны файлов",
         "sec_trans": "3. Переводы метаданных",
         "trans_info": "По требованиям журнала необходимо предоставить название, авторов, аннотацию и ключевые слова на двух других языках.",
         "gen_btn": "🚀 Сгенерировать статью",
@@ -76,7 +79,12 @@ locales = {
         "reg_err_fill": "Пожалуйста, заполните Имя, Email и Телефон.",
         "f_author": "Канат Самарханов / Kanat Samarkhanov",
         "f_license": "Лицензия",
-        "f_univ": "ЕНУ им. Л.Н. Гумилева — Кафедра физической и экономической географии",
+        "f_univ": "ЕНУ им. Л.Н. Гумилева",
+        "browse_files": "Выбрать файлы",
+        "drag_drop": "Перетащите файлы сюда",
+        "limit": "Лимит 200MB",
+        "fig_prefix": "Рисунок",
+        "tab_prefix": "Таблица"
     },
     "kz": {
         "title": "📝 Ғылыми мақалалардың ақылды генераторы",
@@ -101,13 +109,16 @@ locales = {
         "lbl_abstract": "Аңдатпа (300 сөзге дейін)",
         "lbl_kw": "Түйінді сөздер",
         "lbl_kw_help": "Сөз 1; сөз 2; сөз 3 (3-тен 10 сөзге дейін)",
-        "lbl_intro": "Кіріспе (.txt немесе .docx)",
-        "lbl_methods": "Материалдар мен әдістер (.txt немесе .docx)",
-        "lbl_results": "Нәтижелер (.txt немесе .docx)",
-        "lbl_conclusion": "Қорытынды (.txt немесе .docx)",
-        "lbl_ref_manager": "📚 Смарт-әдебиеттер менеджері",
+        "lbl_intro": "Кіріспе (.txt/.docx)",
+        "lbl_methods": "Материалдар/әдістер (.txt/.docx)",
+        "lbl_results": "Нәтижелер (.txt/.docx)",
+        "lbl_discussion": "Талқылау (.txt/.docx)",
+        "lbl_conclusion": "Қорытынды (.txt/.docx)",
+        "lbl_ref_manager": "📚 Әдебиеттер менеджері",
         "lbl_ref_style": "Дәйексөз стилі",
-        "lbl_fig_manager": "📊 Смарт-суреттер мен кестелер менеджері",
+        "lbl_fig_manager": "📊 Суреттер менеджері",
+        "lbl_tab_manager": "📋 Кестелер менеджері",
+        "lbl_samples": "📥 Файл үлгілерін жүктеп алу",
         "sec_trans": "3. Метадеректер аудармасы",
         "trans_info": "Журнал талаптарына сәйкес атауын, авторларын, аңдатпасын және түйінді сөздерін басқа екі тілде ұсыну қажет.",
         "gen_btn": "🚀 Мақаланы генерациялау",
@@ -130,7 +141,12 @@ locales = {
         "reg_err_fill": "Аты-жөні, Email және Телефонды толтырыңыз.",
         "f_author": "Канат Самарханов / Kanat Samarkhanov",
         "f_license": "Лицензия",
-        "f_univ": "Л.Н. Гумилев атындағы ЕҰУ — Физикалық және экономикалық география кафедрасы",
+        "f_univ": "Л.Н. Гумилев атындағы ЕҰУ",
+        "browse_files": "Файлдарды таңдау",
+        "drag_drop": "Файлдарды осында сүйреңіз",
+        "limit": "Шектеу 200MB",
+        "fig_prefix": "Сурет",
+        "tab_prefix": "Кесте"
     },
     "en": {
         "title": "📝 Smart Paper Generator",
@@ -151,17 +167,20 @@ locales = {
         "lbl_affil": "Affiliations",
         "lbl_affil_help": "1 University, City, Country; email",
         "lbl_email": "Correspondence Email",
-        "sec_text": "2. Main Text (IMRAD Files)",
+        "sec_text": "2. Main Text (IMRAD Uploads)",
         "lbl_abstract": "Abstract (up to 300 words)",
         "lbl_kw": "Keywords",
         "lbl_kw_help": "Keyword 1; keyword 2; keyword 3 (3 to 10 words)",
-        "lbl_intro": "Introduction (.txt or .docx)",
-        "lbl_methods": "Materials and Methods (.txt or .docx)",
-        "lbl_results": "Results (.txt or .docx)",
-        "lbl_conclusion": "Conclusion (.txt or .docx)",
-        "lbl_ref_manager": "📚 Smart Reference Manager",
+        "lbl_intro": "Introduction (.txt/.docx)",
+        "lbl_methods": "Materials & Methods (.txt/.docx)",
+        "lbl_results": "Results (.txt/.docx)",
+        "lbl_discussion": "Discussion (.txt/.docx)",
+        "lbl_conclusion": "Conclusion (.txt/.docx)",
+        "lbl_ref_manager": "📚 Reference Manager",
         "lbl_ref_style": "Citation Style",
-        "lbl_fig_manager": "📊 Smart Figure and Table Manager",
+        "lbl_fig_manager": "📊 Figure Manager",
+        "lbl_tab_manager": "📋 Table Manager",
+        "lbl_samples": "📥 Download Sample Files",
         "sec_trans": "3. Metadata Translations",
         "trans_info": "According to the journal requirements, the title, authors, abstract and keywords must be provided in two other languages.",
         "gen_btn": "🚀 Generate Document",
@@ -184,13 +203,59 @@ locales = {
         "reg_err_fill": "Please fill in your Name, Email, and Phone.",
         "f_author": "Kanat Samarkhanov",
         "f_license": "License",
-        "f_univ": "L.N. Gumilyov ENU — Department of Physical and Economic Geography",
+        "f_univ": "L.N. Gumilyov ENU",
+        "browse_files": "Browse files",
+        "drag_drop": "Drag and drop files here",
+        "limit": "Limit 200MB",
+        "fig_prefix": "Figure",
+        "tab_prefix": "Table"
     }
 }
 
 l = locales[st.session_state.lang]
 
 # ------------ CSS Дизайн ------------
+# CSS to inject language strings directly into the File Uploader component
+file_uploader_i18n = f"""
+<style>
+/* Translate File Uploader Browse Button */
+[data-testid="stFileUploadDropzone"] button {{
+    color: transparent !important;
+    position: relative;
+}}
+[data-testid="stFileUploadDropzone"] button::after {{
+    content: "{l['browse_files']}";
+    color: #ffffff !important;
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    visibility: visible;
+    font-weight: 600;
+}}
+/* Translate File Uploader Drag Text */
+[data-testid="stFileUploadDropzone"] div[data-testid="stText"] span {{
+    display: none !important;
+}}
+[data-testid="stFileUploadDropzone"] div[data-testid="stText"]::before {{
+    content: "{l['drag_drop']}\\A {l['limit']}";
+    white-space: pre-wrap;
+    color: #888888 !important;
+    display: block;
+    text-align: center;
+    font-size: 0.9rem;
+}}
+
+/* -- УБИРАЕМ ВЕРТИКАЛЬНЫЕ ЛИНИИ (CURSOR & BORDERS) В СЕЛЕКТАХ -- */
+[data-baseweb="select"] input {{
+    caret-color: transparent !important; /* Removes blinking vertical cursor line */
+}}
+div[data-baseweb="select"] * {{
+    border-left: none !important; /* Removes inner dividers */
+    border-right: none !important;
+}}
+</style>
+"""
+
 light_css = """
 <style>
 .stApp { background-color: #ffffff !important; }
@@ -226,53 +291,21 @@ button[kind="primary"]:hover {
     border-color: #1e40af !important;
     box-shadow: 0 0 8px rgba(37, 99, 235, 0.4) !important;
 }
-
-/* --- СТИЛЬ ПЕРЕКЛЮЧАТЕЛЕЙ (SEGMENTED CONTROL LIKE SCREENSHOT) --- */
-div[data-testid="stRadio"] {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-}
+/* Переключатели навигации */
+div[data-testid="stRadio"] { display: flex; justify-content: center; margin-bottom: 1rem; }
 div[data-testid="stRadio"] div[role="radiogroup"] {
-    background-color: #f1f3f4 !important;
-    border-radius: 20px !important;
-    padding: 4px !important;
-    display: inline-flex !important;
-    gap: 4px !important;
-    flex-direction: row !important;
-    border: none !important;
+    background-color: #f1f3f4 !important; border-radius: 20px !important; padding: 4px !important;
+    display: inline-flex !important; gap: 4px !important; border: none !important;
 }
 div[data-testid="stRadio"] div[role="radiogroup"] label {
-    background-color: transparent !important;
-    padding: 8px 24px !important;
-    border-radius: 16px !important;
-    margin: 0 !important;
-    color: #5f6368 !important;
-    font-weight: 500 !important;
-    cursor: pointer !important;
-    border: none !important;
-    box-shadow: none !important;
-    transition: all 0.2s ease-in-out;
+    background-color: transparent !important; padding: 8px 24px !important; border-radius: 16px !important;
+    color: #5f6368 !important; font-weight: 500 !important; cursor: pointer !important; border: none !important;
+    transition: all 0.2s; margin:0 !important;
 }
-div[data-testid="stRadio"] div[role="radiogroup"] label:hover {
-    background-color: rgba(0,0,0,0.05) !important;
-}
-/* Ensure inner text inherits color */
-div[data-testid="stRadio"] div[role="radiogroup"] label p {
-    color: inherit !important;
-    font-weight: inherit !important;
-    margin: 0 !important;
-}
-/* Hide the physical radio circles */
-div[data-testid="stRadio"] div[role="radio"] {
-    display: none !important;
-}
-/* Active Tab Style */
+div[data-testid="stRadio"] div[role="radiogroup"] label:hover { background-color: rgba(0,0,0,0.05) !important; }
+div[data-testid="stRadio"] div[role="radio"] { display: none !important; }
 div[data-testid="stRadio"] div[role="radiogroup"] label:has(div[aria-checked="true"]) {
-    background-color: #ffffff !important;
-    color: #1a1a1a !important;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
-    font-weight: 600 !important;
+    background-color: #ffffff !important; color: #1a1a1a !important; box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important; font-weight: 600 !important;
 }
 </style>
 """
@@ -314,74 +347,39 @@ button[kind="primary"]:hover {
     border-color: #3b82f6 !important;
     box-shadow: 0 0 8px rgba(59, 130, 246, 0.6) !important;
 }
-
-/* --- СТИЛЬ ПЕРЕКЛЮЧАТЕЛЕЙ (SEGMENTED CONTROL LIKE SCREENSHOT) --- */
-div[data-testid="stRadio"] {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-}
+/* Переключатели навигации */
+div[data-testid="stRadio"] { display: flex; justify-content: center; margin-bottom: 1rem; }
 div[data-testid="stRadio"] div[role="radiogroup"] {
-    background-color: #0b1727 !important;
-    border-radius: 20px !important;
-    padding: 4px !important;
-    display: inline-flex !important;
-    gap: 4px !important;
-    flex-direction: row !important;
-    border: 1px solid #1e3a5f !important;
+    background-color: #0b1727 !important; border-radius: 20px !important; padding: 4px !important;
+    display: inline-flex !important; gap: 4px !important; border: 1px solid #1e3a5f !important;
 }
 div[data-testid="stRadio"] div[role="radiogroup"] label {
-    background-color: transparent !important;
-    padding: 8px 24px !important;
-    border-radius: 16px !important;
-    margin: 0 !important;
-    color: #7b96b8 !important;
-    font-weight: 500 !important;
-    cursor: pointer !important;
-    border: none !important;
-    box-shadow: none !important;
-    transition: all 0.2s ease-in-out;
+    background-color: transparent !important; padding: 8px 24px !important; border-radius: 16px !important;
+    color: #7b96b8 !important; font-weight: 500 !important; cursor: pointer !important; border: none !important;
+    transition: all 0.2s; margin:0 !important;
 }
-div[data-testid="stRadio"] div[role="radiogroup"] label:hover {
-    background-color: rgba(255,255,255,0.05) !important;
-}
-/* Ensure inner text inherits color */
-div[data-testid="stRadio"] div[role="radiogroup"] label p {
-    color: inherit !important;
-    font-weight: inherit !important;
-    margin: 0 !important;
-}
-/* Hide the physical radio circles */
-div[data-testid="stRadio"] div[role="radio"] {
-    display: none !important;
-}
-/* Active Tab Style */
+div[data-testid="stRadio"] div[role="radiogroup"] label:hover { background-color: rgba(255,255,255,0.05) !important; }
+div[data-testid="stRadio"] div[role="radio"] { display: none !important; }
 div[data-testid="stRadio"] div[role="radiogroup"] label:has(div[aria-checked="true"]) {
-    background-color: #2563eb !important;
-    color: #ffffff !important;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3) !important;
-    font-weight: 600 !important;
+    background-color: #2563eb !important; color: #ffffff !important; box-shadow: 0 2px 5px rgba(0,0,0,0.3) !important; font-weight: 600 !important;
 }
 </style>
 """
 
+st.markdown(file_uploader_i18n, unsafe_allow_html=True)
 st.markdown(dark_css if st.session_state.theme == "dark" else light_css, unsafe_allow_html=True)
 
-
+# ------------ Helpers ------------
 def auto_download(bio, filename):
     b64 = base64.b64encode(bio.getvalue()).decode()
     custom_html = f"""
         <a id="auto_download_link" href="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,{b64}" download="{filename}"></a>
-        <script>
-            document.getElementById('auto_download_link').click();
-        </script>
+        <script> document.getElementById('auto_download_link').click(); </script>
     """
     components.html(custom_html, height=0)
 
-
 def extract_text(uploaded_file):
-    if not uploaded_file:
-        return ""
+    if not uploaded_file: return ""
     try:
         if uploaded_file.name.endswith('.txt'):
             return uploaded_file.read().decode('utf-8')
@@ -389,9 +387,17 @@ def extract_text(uploaded_file):
             doc_file = docx.Document(uploaded_file)
             return '\n'.join([p.text for p in doc_file.paragraphs])
     except Exception as e:
-        return f"[Қате / Error: {str(e)}]"
+        return f"[Error: {str(e)}]"
     return ""
 
+def create_sample_docx(section_title):
+    doc = docx.Document()
+    doc.add_heading(section_title, level=1)
+    doc.add_paragraph(f"Here is sample content for {section_title}. Delete this and paste your text.")
+    doc.add_paragraph(f"Example of tagging: The results shown in [@fig1] are summarized in [@tab1]. Relevant literature supports this [@ref1].")
+    bio = BytesIO()
+    doc.save(bio)
+    return bio.getvalue()
 
 def append_to_github_csv(filename, row_data, header_data):
     try:
@@ -401,38 +407,27 @@ def append_to_github_csv(filename, row_data, header_data):
         file_exists = os.path.isfile(filename)
         with open(filename, mode="a", encoding="utf-8-sig", newline="") as f:
             writer = csv.writer(f)
-            if not file_exists:
-                writer.writerow(header_data)
+            if not file_exists: writer.writerow(header_data)
             writer.writerow(row_data)
         return
-
     url = f"https://api.github.com/repos/{github_repo}/contents/{filename}"
     headers = {"Authorization": f"token {github_token}"}
     response = requests.get(url, headers=headers)
     sha = None
-
     if response.status_code == 200:
         data = response.json()
         sha = data["sha"]
         content = base64.b64decode(data["content"]).decode("utf-8")
     else:
         content = "\ufeff"
-
     output = io.StringIO()
     writer = csv.writer(output)
-    if content == "\ufeff":
-        writer.writerow(header_data)
+    if content == "\ufeff": writer.writerow(header_data)
     writer.writerow(row_data)
-
     new_content = content + output.getvalue()
-    payload = {
-        "message": f"Жаңа дерек қосылды: {filename}",
-        "content": base64.b64encode(new_content.encode("utf-8")).decode("utf-8"),
-    }
-    if sha:
-        payload["sha"] = sha
+    payload = {"message": f"Added: {filename}", "content": base64.b64encode(new_content.encode("utf-8")).decode("utf-8")}
+    if sha: payload["sha"] = sha
     requests.put(url, headers=headers, json=payload)
-
 
 def log_generation(title_text, authors_text, lang):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -440,17 +435,13 @@ def log_generation(title_text, authors_text, lang):
     header = ["Уақыты (Timestamp)", "Тіл (Language)", "Тақырып (Title)", "Авторлар (Authors)"]
     append_to_github_csv("generation_logs.csv", row, header)
 
-
 def log_registration(name, email, phone, org, pos):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     row = [timestamp, name, email, phone, org, pos]
-    header = [
-        "Уақыты (Timestamp)", "Аты-жөні (Full Name)", "Email",
-        "Телефон (Phone)", "Ұйым (Organization)", "Лауазымы (Position)"
-    ]
+    header = ["Уақыты (Timestamp)", "Аты-жөні (Full Name)", "Email", "Телефон (Phone)", "Ұйым (Organization)", "Лауазымы (Position)"]
     append_to_github_csv("registered_users.csv", row, header)
 
-
+# ------------ Header ------------
 hc1, hc2, hc3 = st.columns([6, 1.8, 1.8])
 with hc1:
     st.title(l["title"])
@@ -458,12 +449,7 @@ with hc1:
 with hc2:
     _lang_labels = {"kz": "🇰🇿 Қазақша", "ru": "🇷🇺 Русский", "en": "🇬🇧 English"}
     _lang_keys = list(_lang_labels.keys())
-    _sel = st.selectbox(
-        "lang", _lang_keys,
-        index=_lang_keys.index(st.session_state.lang),
-        format_func=lambda x: _lang_labels[x],
-        label_visibility="collapsed",
-    )
+    _sel = st.selectbox("lang", _lang_keys, index=_lang_keys.index(st.session_state.lang), format_func=lambda x: _lang_labels[x], label_visibility="collapsed")
     if _sel != st.session_state.lang:
         st.session_state.lang = _sel
         st.rerun()
@@ -482,35 +468,24 @@ if st.session_state.get("go_to_gen"):
     st.session_state.nav_radio = l["nav_gen"]
     st.session_state.go_to_gen = False
 
-app_mode = st.radio(
-    "",
-    [l["nav_gen"], l["nav_reg"]],
-    horizontal=True,
-    label_visibility="collapsed",
-    key="nav_radio",
-)
+app_mode = st.radio("", [l["nav_gen"], l["nav_reg"]], horizontal=True, label_visibility="collapsed", key="nav_radio")
 st.markdown("---")
 
 is_locked = not st.session_state.is_registered
 
+# ==========================================
+# РЕЖИМ: ГЕНЕРАТОР
+# ==========================================
 if app_mode == l["nav_gen"]:
     if is_locked:
         st.error(l["reg_req_msg"], icon="🔒")
 
     st.subheader(l["sidebar_title"])
     col_s1, col_s2, col_s3, col_s4 = st.columns(4)
-    with col_s1:
-        primary_lang = st.selectbox(l["lbl_lang"], ["Русский", "Қазақша", "English"], disabled=is_locked)
-    with col_s2:
-        section = st.selectbox(l["lbl_sec"], ["Химия", "География"], disabled=is_locked)
-    with col_s3:
-        paper_type = st.selectbox(
-            l["lbl_type"],
-            ["Научная статья (Article)", "Обзор (Review)", "Мини-обзор (Mini-review)", "Краткое сообщение (Communication)"],
-            disabled=is_locked,
-        )
-    with col_s4:
-        mrnti = st.text_input(l["lbl_mrnti"], value="06.81.23", disabled=is_locked)
+    with col_s1: primary_lang = st.selectbox(l["lbl_lang"], ["Русский", "Қазақша", "English"], disabled=is_locked)
+    with col_s2: section = st.selectbox(l["lbl_sec"], ["Химия", "География"], disabled=is_locked)
+    with col_s3: paper_type = st.selectbox(l["lbl_type"], ["Научная статья (Article)", "Обзор (Review)", "Мини-обзор (Mini-review)", "Краткое сообщение (Communication)"], disabled=is_locked)
+    with col_s4: mrnti = st.text_input(l["lbl_mrnti"], value="06.81.23", disabled=is_locked)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -526,37 +501,54 @@ if app_mode == l["nav_gen"]:
     st.header(l["sec_text"])
     abstract = st.text_area(l["lbl_abstract"], height=150, disabled=is_locked)
     abstract_word_count = len(abstract.split()) if abstract else 0
-
     if not is_locked:
-        if abstract_word_count > 300:
-            st.error(l["err_abs_len"].format(count=abstract_word_count))
-        elif abstract_word_count > 0:
-            st.success(l["succ_abs_len"].format(count=abstract_word_count))
+        if abstract_word_count > 300: st.error(l["err_abs_len"].format(count=abstract_word_count))
+        elif abstract_word_count > 0: st.success(l["succ_abs_len"].format(count=abstract_word_count))
 
     keywords = st.text_input(l["lbl_kw"], help=l["lbl_kw_help"], disabled=is_locked)
     
-    # --- IMRAD Файлдарды жүктеу (File Uploaders instead of Text Area) ---
-    st.subheader("IMRAD: Файлдарды жүктеп алу (Upload files)")
-    col_i1, col_i2 = st.columns(2)
+    # --- Загрузка шаблонов (Sample Files Download) ---
+    st.markdown("##### " + l["lbl_samples"])
+    col_dl1, col_dl2, col_dl3, col_dl4, col_dl5 = st.columns(5)
+    with col_dl1: st.download_button("📥 Intro", create_sample_docx("Introduction"), file_name="sample_intro.docx", use_container_width=True, disabled=is_locked)
+    with col_dl2: st.download_button("📥 Methods", create_sample_docx("Materials and Methods"), file_name="sample_methods.docx", use_container_width=True, disabled=is_locked)
+    with col_dl3: st.download_button("📥 Results", create_sample_docx("Results"), file_name="sample_results.docx", use_container_width=True, disabled=is_locked)
+    with col_dl4: st.download_button("📥 Discussion", create_sample_docx("Discussion"), file_name="sample_discussion.docx", use_container_width=True, disabled=is_locked)
+    with col_dl5: st.download_button("📥 Conclusion", create_sample_docx("Conclusion"), file_name="sample_conclusion.docx", use_container_width=True, disabled=is_locked)
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # --- IMRAD Файлдарды жүктеу (File Uploaders with Discussion) ---
+    col_i1, col_i2, col_i3 = st.columns([1,1,1])
     with col_i1:
         file_intro = st.file_uploader(l["lbl_intro"], type=["txt", "docx"], disabled=is_locked)
         file_methods = st.file_uploader(l["lbl_methods"], type=["txt", "docx"], disabled=is_locked)
     with col_i2:
         file_results = st.file_uploader(l["lbl_results"], type=["txt", "docx"], disabled=is_locked)
+        file_discussion = st.file_uploader(l["lbl_discussion"], type=["txt", "docx"], disabled=is_locked)
+    with col_i3:
         file_conclusion = st.file_uploader(l["lbl_conclusion"], type=["txt", "docx"], disabled=is_locked)
 
-    # --- Суреттер мен кестелер менеджері (Smart Figure & Table Manager) ---
-    st.header(l["lbl_fig_manager"])
-    fig_df = pd.DataFrame(columns=["Tag in text (e.g. @fig1)", "Type (Figure/Table)", "Caption"])
-    if not is_locked:
-        edited_figs = st.data_editor(fig_df, num_rows="dynamic", use_container_width=True)
-    else:
-        st.dataframe(fig_df, use_container_width=True)
+    # --- Раздельные Менеджеры: Суреттер мен Кестелер (Figures & Tables Separated) ---
+    st.markdown("<br>", unsafe_allow_html=True)
+    col_ft1, col_ft2 = st.columns(2)
+    with col_ft1:
+        st.header(l["lbl_fig_manager"])
+        fig_df = pd.DataFrame([{"Tag in text": "[@fig1]", "Caption": ""}])
+        if not is_locked:
+            edited_figs = st.data_editor(fig_df, num_rows="dynamic", use_container_width=True, key="fig_editor")
+        else: st.dataframe(fig_df, use_container_width=True)
+
+    with col_ft2:
+        st.header(l["lbl_tab_manager"])
+        tab_df = pd.DataFrame([{"Tag in text": "[@tab1]", "Caption": ""}])
+        if not is_locked:
+            edited_tabs = st.data_editor(tab_df, num_rows="dynamic", use_container_width=True, key="tab_editor")
+        else: st.dataframe(tab_df, use_container_width=True)
 
     # --- Әдебиеттер менеджері (Smart Reference Manager) ---
     st.header(l["lbl_ref_manager"])
     ref_style = st.selectbox(l["lbl_ref_style"], ["GOST", "APA", "IEEE"], disabled=is_locked)
-    ref_df = pd.DataFrame(columns=["Tag in text (e.g. @ref1)", "Author(s)", "Year", "Title", "Journal/Publisher", "Volume/Pages"])
+    ref_df = pd.DataFrame([{"Tag in text": "[@ref1]", "Author(s)": "", "Year": "", "Title": "", "Journal/Publisher": "", "Volume/Pages": ""}])
     
     if not is_locked:
         edited_refs = st.data_editor(ref_df, num_rows="dynamic", use_container_width=True)
@@ -566,10 +558,8 @@ if app_mode == l["nav_gen"]:
     # --- Аудармалар ---
     st.header(l["sec_trans"])
     st.info(l["trans_info"])
-
     trans_langs = ["Русский", "Қазақша", "English"]
-    if primary_lang in trans_langs:
-        trans_langs.remove(primary_lang)
+    if primary_lang in trans_langs: trans_langs.remove(primary_lang)
 
     col_t1, col_t2 = st.columns(2)
     with col_t1:
@@ -578,7 +568,6 @@ if app_mode == l["nav_gen"]:
         t1_authors = st.text_input(f"{l['lbl_authors']} ({trans_langs[0]})", disabled=is_locked)
         t1_abstract = st.text_area(f"{l['lbl_abstract']} ({trans_langs[0]})", height=100, disabled=is_locked)
         t1_keywords = st.text_input(f"{l['lbl_kw']} ({trans_langs[0]})", disabled=is_locked)
-
     with col_t2:
         st.subheader(f"{trans_langs[1]}")
         t2_title = st.text_input(f"{l['lbl_title']} ({trans_langs[1]})", disabled=is_locked)
@@ -590,10 +579,8 @@ if app_mode == l["nav_gen"]:
     generate_btn = st.button(l["gen_btn"], type="primary", use_container_width=True, disabled=is_locked)
 
     if generate_btn and not is_locked:
-        if abstract_word_count > 300:
-            st.error(l["err_abs_len"].format(count=abstract_word_count))
-        elif not title or not authors:
-            st.warning(l["err_fill_req"])
+        if abstract_word_count > 300: st.error(l["err_abs_len"].format(count=abstract_word_count))
+        elif not title or not authors: st.warning(l["err_fill_req"])
         else:
             try:
                 # 1. Мәтіндерді жинақтау (Compile IMRAD text)
@@ -601,37 +588,41 @@ if app_mode == l["nav_gen"]:
                 if file_intro: main_text_compiled += "1. INTRODUCTION\n" + extract_text(file_intro) + "\n\n"
                 if file_methods: main_text_compiled += "2. MATERIALS AND METHODS\n" + extract_text(file_methods) + "\n\n"
                 if file_results: main_text_compiled += "3. RESULTS\n" + extract_text(file_results) + "\n\n"
-                if file_conclusion: main_text_compiled += "4. CONCLUSION\n" + extract_text(file_conclusion) + "\n\n"
+                if file_discussion: main_text_compiled += "4. DISCUSSION\n" + extract_text(file_discussion) + "\n\n"
+                if file_conclusion: main_text_compiled += "5. CONCLUSION\n" + extract_text(file_conclusion) + "\n\n"
                 
-                # 2. Суреттерді өңдеу және мәтінде алмастыру (Process Figures & Replace Tags)
+                # 2. Суреттер (Figures)
                 fig_text_compiled = ""
-                element_counters = {} # Smart dictionary to independently track "Figure" vs "Table"
-                
+                fig_counter = 1
                 for _, row in edited_figs.iterrows():
-                    c_tag = str(row.get("Tag in text (e.g. @fig1)", "")).strip()
-                    c_type = str(row.get("Type (Figure/Table)", "")).strip()
+                    c_tag = str(row.get("Tag in text", "")).strip()
                     c_cap = str(row.get("Caption", "")).strip()
-                    
-                    if c_type and c_type != "nan" and c_cap and c_cap != "nan":
-                        # Determine current counter for this exact Type
-                        current_count = element_counters.get(c_type, 1)
-                        fig_label = f"{c_type} {current_count}"
-                        element_counters[c_type] = current_count + 1
-                        
+                    if c_cap and c_cap != "nan":
+                        fig_label = f"{l['fig_prefix']} {fig_counter}"
                         fig_text_compiled += f"{fig_label}. {c_cap}\n"
-                        
-                        # Find and replace the tag in the main text!
-                        if c_tag and c_tag != "nan":
-                            main_text_compiled = main_text_compiled.replace(c_tag, fig_label)
-                
-                if fig_text_compiled:
-                    main_text_compiled += "\n\n--- FIGURES & TABLES ---\n" + fig_text_compiled
+                        if c_tag and c_tag != "nan": main_text_compiled = main_text_compiled.replace(c_tag, fig_label)
+                        fig_counter += 1
 
-                # 3. Әдебиеттерді өңдеу және мәтінде алмастыру (Process References & Replace Tags)
+                # 3. Кестелер (Tables)
+                tab_text_compiled = ""
+                tab_counter = 1
+                for _, row in edited_tabs.iterrows():
+                    c_tag = str(row.get("Tag in text", "")).strip()
+                    c_cap = str(row.get("Caption", "")).strip()
+                    if c_cap and c_cap != "nan":
+                        tab_label = f"{l['tab_prefix']} {tab_counter}"
+                        tab_text_compiled += f"{tab_label}. {c_cap}\n"
+                        if c_tag and c_tag != "nan": main_text_compiled = main_text_compiled.replace(c_tag, tab_label)
+                        tab_counter += 1
+                
+                if fig_text_compiled or tab_text_compiled:
+                    main_text_compiled += "\n\n--- FIGURES & TABLES ---\n" + fig_text_compiled + "\n" + tab_text_compiled
+
+                # 4. Әдебиеттер (References)
                 refs_compiled = []
                 ref_counter = 1
                 for _, row in edited_refs.iterrows():
-                    r_tag = str(row.get("Tag in text (e.g. @ref1)", "")).strip()
+                    r_tag = str(row.get("Tag in text", "")).strip()
                     r_author = str(row.get("Author(s)", "")).strip()
                     r_year = str(row.get("Year", "")).strip()
                     r_title = str(row.get("Title", "")).strip()
@@ -640,7 +631,6 @@ if app_mode == l["nav_gen"]:
                     
                     if r_author == "nan" or not r_author: continue
                     
-                    # Format the bibliography entry & In-Text Citation
                     if ref_style == "APA":
                         ref_entry = f"{r_author} ({r_year}). {r_title}. {r_journal}, {r_vol}."
                         first_author = r_author.split(',')[0].strip()
@@ -653,78 +643,46 @@ if app_mode == l["nav_gen"]:
                         in_text_citation = f"[{ref_counter}]"
                         
                     refs_compiled.append(ref_entry)
-                    
-                    # Replace the tag in the text with the correct citation!
-                    if r_tag and r_tag != "nan":
-                        main_text_compiled = main_text_compiled.replace(r_tag, in_text_citation)
-                        
+                    if r_tag and r_tag != "nan": main_text_compiled = main_text_compiled.replace(r_tag, in_text_citation)
                     ref_counter += 1
                 
                 final_references = "\n".join(refs_compiled)
 
                 # Шаблон таңдау
                 template_filename = "Russian_template_2025.docx"
-                if primary_lang == "Русский":
-                    template_filename = "Russian_template_2025.docx"
-                elif primary_lang == "Қазақша":
-                    template_filename = "Kazakh_template_2025.docx"
-                elif primary_lang == "English":
-                    template_filename = "English_template_2025.docx"
+                if primary_lang == "Русский": template_filename = "Russian_template_2025.docx"
+                elif primary_lang == "Қазақша": template_filename = "Kazakh_template_2025.docx"
+                elif primary_lang == "English": template_filename = "English_template_2025.docx"
 
                 context = {
-                    "mrnti": mrnti,
-                    "section": section,
-                    "paper_type": paper_type,
-                    "title": title,
-                    "authors": authors,
-                    "affiliations": affiliations,
-                    "corr_email": corr_email,
-                    "abstract": abstract,
-                    "keywords": keywords,
-                    "main_text": main_text_compiled,
-                    "references": final_references,
-                    "t1_title": t1_title,
-                    "t1_authors": t1_authors,
-                    "t1_abstract": t1_abstract,
-                    "t1_keywords": t1_keywords,
-                    "t2_title": t2_title,
-                    "t2_authors": t2_authors,
-                    "t2_abstract": t2_abstract,
-                    "t2_keywords": t2_keywords,
+                    "mrnti": mrnti, "section": section, "paper_type": paper_type,
+                    "title": title, "authors": authors, "affiliations": affiliations, "corr_email": corr_email,
+                    "abstract": abstract, "keywords": keywords,
+                    "main_text": main_text_compiled, "references": final_references,
+                    "t1_title": t1_title, "t1_authors": t1_authors, "t1_abstract": t1_abstract, "t1_keywords": t1_keywords,
+                    "t2_title": t2_title, "t2_authors": t2_authors, "t2_abstract": t2_abstract, "t2_keywords": t2_keywords,
                 }
 
                 doc = DocxTemplate(template_filename)
                 doc.render(context)
-
                 bio = BytesIO()
                 doc.save(bio)
-
                 st.success(l["succ_gen"])
 
-                with st.spinner("Деректер сақталуда... (Saving logs...)"):
+                with st.spinner("Деректер сақталуда..."):
                     log_generation(title, authors, primary_lang)
 
                 auto_download(bio, "Formatted_Article.docx")
-
-                st.download_button(
-                    label=l["btn_dl"],
-                    data=bio.getvalue(),
-                    file_name="Formatted_Article.docx",
-                    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                    type="secondary",
-                )
+                st.download_button(label=l["btn_dl"], data=bio.getvalue(), file_name="Formatted_Article.docx", mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document", type="secondary")
             except Exception as e:
                 st.error(f"{l['err_gen']} {e}")
-                st.info(
-                    "💡 Ескерту: 'Russian_template_2025.docx', 'Kazakh_template_2025.docx' және 'English_template_2025.docx' файлдары бумада болуы тиіс."
-                )
+                st.info("💡 Ескерту: 'Russian_template_2025.docx', 'Kazakh_template_2025.docx' және 'English_template_2025.docx' файлдары бумада болуы тиіс.")
 
 # ==========================================
-# РЕЖИМ: РЕГИСТРАЦИЯ (ТІРКЕЛУ)
+# РЕЖИМ: РЕГИСТРАЦИЯ
 # ==========================================
 elif app_mode == l["nav_reg"]:
     st.header(l["reg_header"])
-
     if st.session_state.is_registered:
         st.success(l["reg_success"])
         st.info(l["reg_info"])
@@ -735,55 +693,34 @@ elif app_mode == l["nav_reg"]:
             r_phone = st.text_input(l["reg_phone"])
             r_org = st.text_input(l["reg_org"])
             r_pos = st.text_input(l["reg_pos"])
-
             submitted = st.form_submit_button(l["reg_submit"], type="primary")
 
             if submitted:
                 if r_name and r_email and r_phone:
                     with st.spinner("Тіркелу жүріп жатыр..."):
                         log_registration(r_name, r_email, r_phone, r_org, r_pos)
-
                     st.session_state.is_registered = True
                     st.session_state.go_to_gen = True
                     st.success(l["reg_success"])
                     st.rerun()
-                else:
-                    st.error(l["reg_err_fill"])
+                else: st.error(l["reg_err_fill"])
 
 with st.sidebar:
     if os.path.exists("generation_logs.csv") or os.path.exists("registered_users.csv"):
         st.markdown("<br><br><br>", unsafe_allow_html=True)
         st.caption("🔒 Панель администратора")
-
         if os.path.exists("generation_logs.csv"):
             with open("generation_logs.csv", "rb") as f:
-                st.download_button(
-                    label="📊 Логи генерации (.csv)",
-                    data=f,
-                    file_name="generation_logs.csv",
-                    mime="text/csv",
-                    use_container_width=True,
-                )
-
+                st.download_button(label="📊 Логи генерации (.csv)", data=f, file_name="generation_logs.csv", mime="text/csv", use_container_width=True)
         if os.path.exists("registered_users.csv"):
             with open("registered_users.csv", "rb") as f:
-                st.download_button(
-                    label="👥 База пользователей (.csv)",
-                    data=f,
-                    file_name="registered_users.csv",
-                    mime="text/csv",
-                    use_container_width=True,
-                )
+                st.download_button(label="👥 База пользователей (.csv)", data=f, file_name="registered_users.csv", mime="text/csv", use_container_width=True)
 
 st.markdown("---")
 st.markdown(
     f'<div style="text-align:center;font-size:12px;color:gray;padding:12px 0 20px 0;line-height:2.2;">'
     f'<b style="font-size:13px;">© 2025 {l["f_author"]}</b><br>'
     f'📧 <a href="mailto:samarkhanov_kb@enu.kz" style="text-decoration:none;">samarkhanov_kb@enu.kz</a>'
-    f'&nbsp;·&nbsp;'
-    f'<a href="mailto:kanat.baurzhanuly@gmail.com" style="text-decoration:none;">kanat.baurzhanuly@gmail.com</a><br>'
-    f'🏛️ <a href="https://fns.enu.kz/kz/page/departments/physical-and-economical-geography/faculty-members"'
-    f'     target="_blank" style="text-decoration:none;">{l["f_univ"]}</a><br>'
-    f'</div>',
-    unsafe_allow_html=True,
-)
+    f'&nbsp;·&nbsp;<a href="mailto:kanat.baurzhanuly@gmail.com" style="text-decoration:none;">kanat.baurzhanuly@gmail.com</a><br>'
+    f'🏛️ <a href="https://fns.enu.kz/kz/page/departments/physical-and-economical-geography/faculty-members" target="_blank" style="text-decoration:none;">{l["f_univ"]}</a><br>'
+    f'</div>', unsafe_allow_html=True)
