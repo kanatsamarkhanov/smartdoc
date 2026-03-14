@@ -1,7 +1,6 @@
 import streamlit as st
 from docxtpl import DocxTemplate
 from io import BytesIO
-import re
 import csv
 import datetime
 import os
@@ -10,16 +9,17 @@ import os
 st.set_page_config(page_title="Smart Paper Generator", page_icon="📝", layout="wide")
 
 # Сессия күйлерін бастау (Инициализация состояния сессии)
-if "lang"  not in st.session_state: st.session_state.lang  = "kz"
-if "theme" not in st.session_state: st.session_state.theme = "light"
+if "lang" not in st.session_state: 
+    st.session_state.lang = "kz"
 
 # Аудармалар сөздігі (Словарь переводов)
 locales = {
     "ru": {
         "title": "📝 Умный генератор научных статей",
         "subtitle": "Вестник ЕНУ им. Л.Н. Гумилева · Химия / География · 2025",
-        "btn_theme_dark": "🌙 Тёмная тема",
-        "btn_theme_light": "☀️ Светлая тема",
+        "nav_title": "🧭 Навигация",
+        "nav_gen": "📄 Генератор статей",
+        "nav_reg": "👤 Регистрация",
         "sidebar_title": "⚙️ Настройки статьи",
         "lbl_lang": "Основной язык статьи",
         "lbl_sec": "Секция",
@@ -47,7 +47,13 @@ locales = {
         "err_gen": "Произошла ошибка при генерации: ",
         "succ_gen": "✅ Документ успешно сгенерирован!",
         "btn_dl": "⬇️ Скачать .docx файл",
-        "btn_register": "📝 Регистрация в системе",
+        "reg_header": "📝 Регистрация исследователя",
+        "reg_name": "ФИО (Полностью)",
+        "reg_email": "Ваш Email",
+        "reg_org": "Организация / Университет",
+        "reg_pos": "Должность / Статус (например: Докторант)",
+        "reg_submit": "Зарегистрироваться",
+        "reg_success": "✅ Вы успешно зарегистрированы в системе!",
         "f_author": "Канат Самарханов / Kanat Samarkhanov",
         "f_license": "Лицензия",
         "f_univ": "ЕНУ им. Л.Н. Гумилева — Кафедра физической и экономической географии",
@@ -55,8 +61,9 @@ locales = {
     "kz": {
         "title": "📝 Ғылыми мақалалардың ақылды генераторы",
         "subtitle": "Л.Н. Гумилев атындағы ЕҰУ Хабаршысы · Химия / География · 2025",
-        "btn_theme_dark": "🌙 Түнгі режим",
-        "btn_theme_light": "☀️ Күндізгі режим",
+        "nav_title": "🧭 Навигация",
+        "nav_gen": "📄 Мақала генераторы",
+        "nav_reg": "👤 Тіркелу",
         "sidebar_title": "⚙️ Мақала баптаулары",
         "lbl_lang": "Мақаланың негізгі тілі",
         "lbl_sec": "Секция",
@@ -84,7 +91,13 @@ locales = {
         "err_gen": "Генерация кезінде қате пайда болды: ",
         "succ_gen": "✅ Құжат сәтті генерацияланды!",
         "btn_dl": "⬇️ .docx файлын жүктеп алу",
-        "btn_register": "📝 Жүйеге тіркелу",
+        "reg_header": "📝 Зерттеушіні тіркеу",
+        "reg_name": "Аты-жөні (Толық)",
+        "reg_email": "Сіздің Email",
+        "reg_org": "Ұйым / Университет",
+        "reg_pos": "Қызметі / Мәртебесі (мысалы: Докторант)",
+        "reg_submit": "Тіркелу",
+        "reg_success": "✅ Сіз жүйеге сәтті тіркелдіңіз!",
         "f_author": "Канат Самарханов / Kanat Samarkhanov",
         "f_license": "Лицензия",
         "f_univ": "Л.Н. Гумилев атындағы ЕҰУ — Физикалық және экономикалық география кафедрасы",
@@ -92,8 +105,9 @@ locales = {
     "en": {
         "title": "📝 Smart Paper Generator",
         "subtitle": "L.N. Gumilyov ENU Bulletin · Chemistry / Geography · 2025",
-        "btn_theme_dark": "🌙 Dark mode",
-        "btn_theme_light": "☀️ Light mode",
+        "nav_title": "🧭 Navigation",
+        "nav_gen": "📄 Paper Generator",
+        "nav_reg": "👤 Registration",
         "sidebar_title": "⚙️ Paper Settings",
         "lbl_lang": "Primary Language",
         "lbl_sec": "Section",
@@ -121,7 +135,13 @@ locales = {
         "err_gen": "An error occurred during generation: ",
         "succ_gen": "✅ Document successfully generated!",
         "btn_dl": "⬇️ Download .docx file",
-        "btn_register": "📝 Register in the system",
+        "reg_header": "📝 Researcher Registration",
+        "reg_name": "Full Name",
+        "reg_email": "Your Email",
+        "reg_org": "Organization / University",
+        "reg_pos": "Position / Status (e.g., PhD Student)",
+        "reg_submit": "Register",
+        "reg_success": "✅ You have successfully registered in the system!",
         "f_author": "Kanat Samarkhanov",
         "f_license": "License",
         "f_univ": "L.N. Gumilyov ENU — Department of Physical and Economic Geography",
@@ -130,77 +150,37 @@ locales = {
 
 l = locales[st.session_state.lang]
 
-# ------------ CSS Темы ------------
-dark_css = (
-    "<style>"
-    "html,body,[class*='css'],.stApp{background-color:#0d1b2e !important;color:#c9d8ee !important;"
-    "font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif !important;}"
-    "h1,h2,h3,h4,h5,h6,[data-testid='stMarkdownContainer'] h1,[data-testid='stMarkdownContainer'] h2,"
-    "[data-testid='stMarkdownContainer'] h3{color:#e2edf7 !important;font-weight:600 !important;}"
-    "p,span,label,div,li,[data-testid='stMarkdownContainer'] p,"
-    "[data-testid='stCaptionContainer'],.stCaption{color:#c9d8ee !important;}"
-    "[data-testid='block-container'],[data-testid='stVerticalBlock'],"
-    "section[data-testid='stSidebar']{background-color:#0d1b2e !important;}"
-    ".stButton>button{background-color:#0f2340 !important;color:#c9d8ee !important;"
-    "border:1px solid #1e3a5f !important;border-radius:6px !important;}"
-    ".stButton>button:hover{background-color:#1e3a5f !important;color:#e2edf7 !important;}"
-    "[data-testid='stDownloadButton']>button{background-color:#238636 !important;color:#fff !important;"
-    "border:1px solid #2ea043 !important;border-radius:6px !important;}"
-    "[data-testid='stDownloadButton']>button:hover{background-color:#2ea043 !important;}"
-    "input,textarea,select{background-color:#0f2340 !important;color:#c9d8ee !important;"
-    "border:1px solid #1e3a5f !important;}"
-    "[data-testid='stSelectbox']>div>div{background-color:#0f2340 !important;"
-    "border:1px solid #1e3a5f !important;border-radius:6px !important;color:#c9d8ee !important;}"
-    "[data-testid='stAlert']{background-color:#0f2340 !important;border:1px solid #1f6feb !important;"
-    "color:#c9d8ee !important;border-radius:6px !important;}"
-    "hr{border-color:#1e3a5f !important;}"
-    "</style>"
-)
-
-# Light CSS updated to force a white background and dark text natively
-light_css = (
-    "<style>"
-    "html,body,[class*='css'],.stApp{background-color:#ffffff !important;color:#1a3a5c !important;"
-    "font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif !important;}"
-    "h1,h2,h3,h4,h5,h6,[data-testid='stMarkdownContainer'] h1,[data-testid='stMarkdownContainer'] h2,"
-    "[data-testid='stMarkdownContainer'] h3{color:#0d1b2e !important;font-weight:600 !important;}"
-    "p,span,label,div,li,[data-testid='stMarkdownContainer'] p,"
-    "[data-testid='stCaptionContainer'],.stCaption{color:#1a3a5c !important;}"
-    "[data-testid='block-container'],[data-testid='stVerticalBlock'],"
-    "section[data-testid='stSidebar']{background-color:#f8f9fa !important;}"
-    "input,textarea,select{background-color:#ffffff !important;color:#000000 !important;"
-    "border:1px solid #d0d7de !important;}"
-    "[data-testid='stSelectbox']>div>div{background-color:#ffffff !important;"
-    "border:1px solid #d0d7de !important;border-radius:6px !important;color:#000000 !important;}"
-    "[data-testid='stDownloadButton']>button{background-color:#2ea043 !important;color:#fff !important;border-radius:6px !important;}"
-    "</style>"
-)
-
-# Применение CSS стилей
-st.markdown(dark_css if st.session_state.theme == "dark" else light_css, unsafe_allow_html=True)
-
-# Функция для записи логов (Функция для записи логов генерации)
+# Функция для записи логов генерации
 def log_generation_to_file(title_text, authors_text, lang):
     log_file = "generation_logs.csv"
     file_exists = os.path.isfile(log_file)
-    
     try:
         with open(log_file, mode='a', encoding='utf-8', newline='') as f:
             writer = csv.writer(f)
-            # Если файл только создан, пишем заголовки
             if not file_exists:
                 writer.writerow(["Timestamp", "Language", "Title", "Authors"])
-            
-            # Записываем данные о генерации
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             writer.writerow([timestamp, lang, title_text, authors_text])
-    except Exception as e:
-        # Игнорируем ошибки записи, чтобы не ломать генерацию для пользователя
+    except Exception:
+        pass
+
+# Функция для записи регистраций
+def save_registration(name, email, org, pos):
+    log_file = "registered_users.csv"
+    file_exists = os.path.isfile(log_file)
+    try:
+        with open(log_file, mode='a', encoding='utf-8', newline='') as f:
+            writer = csv.writer(f)
+            if not file_exists:
+                writer.writerow(["Timestamp", "Full Name", "Email", "Organization", "Position"])
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            writer.writerow([timestamp, name, email, org, pos])
+    except Exception:
         pass
 
 
-# ------------ Заголовок ------------
-hc1, hc2, hc3 = st.columns([6, 1.8, 1.8])
+# ------------ Заголовок приложения ------------
+hc1, hc2 = st.columns([8, 2])
 with hc1:
     st.title(l["title"])
     st.caption(l["subtitle"])
@@ -216,189 +196,180 @@ with hc2:
     if _sel != st.session_state.lang:
         st.session_state.lang = _sel
         st.rerun()
-with hc3:
-    _tbtn = l["btn_theme_light"] if st.session_state.theme == "dark" else l["btn_theme_dark"]
-    if st.button(_tbtn, use_container_width=True):
-        st.session_state.theme = "light" if st.session_state.theme == "dark" else "dark"
-        st.rerun()
 st.markdown("---")
 
 
-# ------------ Боковая панель ------------
+# ------------ Навигация (Боковая панель) ------------
 with st.sidebar:
-    # Кнопка регистрации (Link Button for Registration)
-    st.link_button(l["btn_register"], "https://gsenconsult.org/register", use_container_width=True)
+    st.header(l["nav_title"])
+    app_mode = st.radio(
+        "",
+        [l["nav_gen"], l["nav_reg"]],
+        label_visibility="collapsed"
+    )
     st.markdown("---")
-    
-    st.header(l["sidebar_title"])
-    
-    primary_lang = st.selectbox(
-        l["lbl_lang"],
-        ["Русский", "Қазақша", "English"]
-    )
-    
-    section = st.selectbox(
-        l["lbl_sec"],
-        ["Химия", "География"]
-    )
-    
-    paper_type = st.selectbox(
-        l["lbl_type"],
-        ["Научная статья (Article)", "Обзор (Review)", "Мини-обзор (Mini-review)", "Краткое сообщение (Communication)"]
-    )
-    
-    mrnti = st.text_input(l["lbl_mrnti"], value="06.81.23")
 
+# ==========================================
+# РЕЖИМ: ГЕНЕРАТОР
+# ==========================================
+if app_mode == l["nav_gen"]:
+    with st.sidebar:
+        st.header(l["sidebar_title"])
+        primary_lang = st.selectbox(l["lbl_lang"], ["Русский", "Қазақша", "English"])
+        section = st.selectbox(l["lbl_sec"], ["Химия", "География"])
+        paper_type = st.selectbox(l["lbl_type"], ["Научная статья (Article)", "Обзор (Review)", "Мини-обзор (Mini-review)", "Краткое сообщение (Communication)"])
+        mrnti = st.text_input(l["lbl_mrnti"], value="06.81.23")
 
-# ------------ Основные формы ------------
-st.header(l["sec_meta"])
-col1, col2 = st.columns(2)
+    st.header(l["sec_meta"])
+    col1, col2 = st.columns(2)
+    with col1:
+        title = st.text_area(l["lbl_title"], height=68)
+        authors = st.text_area(l["lbl_authors"], help=l["lbl_authors_help"], height=68)
+    with col2:
+        affiliations = st.text_area(l["lbl_affil"], help=l["lbl_affil_help"], height=68)
+        corr_email = st.text_input(l["lbl_email"])
 
-with col1:
-    title = st.text_area(l["lbl_title"], height=68)
-    authors = st.text_area(l["lbl_authors"], help=l["lbl_authors_help"], height=68)
+    st.header(l["sec_text"])
+    abstract = st.text_area(l["lbl_abstract"], height=150)
+    abstract_word_count = len(abstract.split())
 
-with col2:
-    affiliations = st.text_area(l["lbl_affil"], help=l["lbl_affil_help"], height=68)
-    corr_email = st.text_input(l["lbl_email"])
-
-
-st.header(l["sec_text"])
-abstract = st.text_area(l["lbl_abstract"], height=150)
-abstract_word_count = len(abstract.split())
-
-if abstract_word_count > 300:
-    st.error(l["err_abs_len"].format(count=abstract_word_count))
-elif abstract_word_count > 0:
-    st.success(l["succ_abs_len"].format(count=abstract_word_count))
-
-keywords = st.text_input(l["lbl_kw"], help=l["lbl_kw_help"])
-main_text = st.text_area(l["lbl_main"], height=300)
-references = st.text_area(l["lbl_refs"], height=200)
-
-
-# ------------ Переводы ------------
-st.header(l["sec_trans"])
-st.info(l["trans_info"])
-
-# Логика языков
-trans_langs = ["Русский", "Қазақша", "English"]
-if primary_lang in trans_langs:
-    trans_langs.remove(primary_lang)
-
-col_t1, col_t2 = st.columns(2)
-
-with col_t1:
-    st.subheader(f"{trans_langs[0]}")
-    t1_title = st.text_input(f"{l['lbl_title']} ({trans_langs[0]})")
-    t1_authors = st.text_input(f"{l['lbl_authors']} ({trans_langs[0]})")
-    t1_abstract = st.text_area(f"{l['lbl_abstract']} ({trans_langs[0]})", height=100)
-    t1_keywords = st.text_input(f"{l['lbl_kw']} ({trans_langs[0]})")
-
-with col_t2:
-    st.subheader(f"{trans_langs[1]}")
-    t2_title = st.text_input(f"{l['lbl_title']} ({trans_langs[1]})")
-    t2_authors = st.text_input(f"{l['lbl_authors']} ({trans_langs[1]})")
-    t2_abstract = st.text_area(f"{l['lbl_abstract']} ({trans_langs[1]})", height=100)
-    t2_keywords = st.text_input(f"{l['lbl_kw']} ({trans_langs[1]})")
-
-
-# ------------ Генерация ------------
-st.markdown("---")
-generate_btn = st.button(l["gen_btn"], type="primary", use_container_width=True)
-
-if generate_btn:
     if abstract_word_count > 300:
         st.error(l["err_abs_len"].format(count=abstract_word_count))
-    elif not title or not authors:
-        st.warning(l["err_fill_req"])
-    else:
-        try:
-            # Выбор шаблона
-            template_filename = "Russian_template_2025.docx" 
-            if primary_lang == "Русский":
-                template_filename = "Russian_template_2025.docx"
-            elif primary_lang == "Қазақша":
-                template_filename = "Kazakh_template_2025.docx"
-            elif primary_lang == "English":
-                template_filename = "English_template_2025.docx"
+    elif abstract_word_count > 0:
+        st.success(l["succ_abs_len"].format(count=abstract_word_count))
+
+    keywords = st.text_input(l["lbl_kw"], help=l["lbl_kw_help"])
+    main_text = st.text_area(l["lbl_main"], height=300)
+    references = st.text_area(l["lbl_refs"], height=200)
+
+    st.header(l["sec_trans"])
+    st.info(l["trans_info"])
+
+    trans_langs = ["Русский", "Қазақша", "English"]
+    if primary_lang in trans_langs:
+        trans_langs.remove(primary_lang)
+
+    col_t1, col_t2 = st.columns(2)
+    with col_t1:
+        st.subheader(f"{trans_langs[0]}")
+        t1_title = st.text_input(f"{l['lbl_title']} ({trans_langs[0]})")
+        t1_authors = st.text_input(f"{l['lbl_authors']} ({trans_langs[0]})")
+        t1_abstract = st.text_area(f"{l['lbl_abstract']} ({trans_langs[0]})", height=100)
+        t1_keywords = st.text_input(f"{l['lbl_kw']} ({trans_langs[0]})")
+
+    with col_t2:
+        st.subheader(f"{trans_langs[1]}")
+        t2_title = st.text_input(f"{l['lbl_title']} ({trans_langs[1]})")
+        t2_authors = st.text_input(f"{l['lbl_authors']} ({trans_langs[1]})")
+        t2_abstract = st.text_area(f"{l['lbl_abstract']} ({trans_langs[1]})", height=100)
+        t2_keywords = st.text_input(f"{l['lbl_kw']} ({trans_langs[1]})")
+
+    st.markdown("---")
+    generate_btn = st.button(l["gen_btn"], type="primary", use_container_width=True)
+
+    if generate_btn:
+        if abstract_word_count > 300:
+            st.error(l["err_abs_len"].format(count=abstract_word_count))
+        elif not title or not authors:
+            st.warning(l["err_fill_req"])
+        else:
+            try:
+                template_filename = "Russian_template_2025.docx" 
+                if primary_lang == "Русский": template_filename = "Russian_template_2025.docx"
+                elif primary_lang == "Қазақша": template_filename = "Kazakh_template_2025.docx"
+                elif primary_lang == "English": template_filename = "English_template_2025.docx"
+                    
+                context = {
+                    'mrnti': mrnti, 'section': section, 'paper_type': paper_type,
+                    'title': title, 'authors': authors, 'affiliations': affiliations,
+                    'corr_email': corr_email, 'abstract': abstract, 'keywords': keywords,
+                    'main_text': main_text, 'references': references,
+                    't1_title': t1_title, 't1_authors': t1_authors, 't1_abstract': t1_abstract, 't1_keywords': t1_keywords,
+                    't2_title': t2_title, 't2_authors': t2_authors, 't2_abstract': t2_abstract, 't2_keywords': t2_keywords
+                }
                 
-            # Создание словаря
-            context = {
-                'mrnti': mrnti,
-                'section': section,
-                'paper_type': paper_type,
-                'title': title,
-                'authors': authors,
-                'affiliations': affiliations,
-                'corr_email': corr_email,
-                'abstract': abstract,
-                'keywords': keywords,
-                'main_text': main_text,
-                'references': references,
-                't1_title': t1_title,
-                't1_authors': t1_authors,
-                't1_abstract': t1_abstract,
-                't1_keywords': t1_keywords,
-                't2_title': t2_title,
-                't2_authors': t2_authors,
-                't2_abstract': t2_abstract,
-                't2_keywords': t2_keywords
-            }
-            
-            # Создание файла
-            doc = DocxTemplate(template_filename)
-            doc.render(context)
-            
-            bio = BytesIO()
-            doc.save(bio)
-            
-            st.success(l["succ_gen"])
-            st.balloons()
-            
-            # Сохранение лога в CSV файл
-            log_generation_to_file(title, authors, primary_lang)
-            
-            st.download_button(
-                label=l["btn_dl"],
-                data=bio.getvalue(),
-                file_name="Formatted_Article.docx",
-                mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            )
-
-        except Exception as e:
-            st.error(f"{l['err_gen']} {e}")
-            st.info("💡 Ескерту: Генерация дұрыс жұмыс істеуі үшін, 'Russian_template_2025.docx', 'Kazakh_template_2025.docx' және 'English_template_2025.docx' деген файлдар app.py орналасқан бумада болуы тиіс.")
+                doc = DocxTemplate(template_filename)
+                doc.render(context)
+                
+                bio = BytesIO()
+                doc.save(bio)
+                
+                st.success(l["succ_gen"])
+                st.balloons()
+                log_generation_to_file(title, authors, primary_lang)
+                
+                st.download_button(
+                    label=l["btn_dl"],
+                    data=bio.getvalue(),
+                    file_name="Formatted_Article.docx",
+                    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    type="primary"
+                )
+            except Exception as e:
+                st.error(f"{l['err_gen']} {e}")
+                st.info("💡 Ескерту: 'Russian_template_2025.docx', 'Kazakh_template_2025.docx' және 'English_template_2025.docx' файлдары бумада болуы тиіс.")
 
 
-# Кнопка скачивания логов для администратора (Показывается только если файл существует)
+# ==========================================
+# РЕЖИМ: РЕГИСТРАЦИЯ
+# ==========================================
+elif app_mode == l["nav_reg"]:
+    st.header(l["reg_header"])
+    
+    with st.form("registration_form"):
+        r_name = st.text_input(l["reg_name"])
+        r_email = st.text_input(l["reg_email"])
+        r_org = st.text_input(l["reg_org"])
+        r_pos = st.text_input(l["reg_pos"])
+        
+        submitted = st.form_submit_button(l["reg_submit"], type="primary")
+        
+        if submitted:
+            if r_name and r_email:
+                save_registration(r_name, r_email, r_org, r_pos)
+                st.success(l["reg_success"])
+            else:
+                st.error("Пожалуйста, заполните Имя и Email." if st.session_state.lang == "ru" else ("Аты-жөні мен Email толтырыңыз." if st.session_state.lang == "kz" else "Please fill in Name and Email."))
+
+
+# ==========================================
+# ПАНЕЛЬ АДМИНИСТРАТОРА (Скачивание файлов)
+# ==========================================
 with st.sidebar:
-    if os.path.exists("generation_logs.csv"):
-        st.markdown("---")
-        with open("generation_logs.csv", "rb") as f:
-            st.download_button(
-                label="📊 Скачать логи генерации (Admin)",
-                data=f,
-                file_name="generation_logs.csv",
-                mime="text/csv",
-                use_container_width=True
-            )
-
+    if os.path.exists("generation_logs.csv") or os.path.exists("registered_users.csv"):
+        st.markdown("<br><br><br>", unsafe_allow_html=True)
+        st.caption("🔒 Панель администратора")
+        
+        if os.path.exists("generation_logs.csv"):
+            with open("generation_logs.csv", "rb") as f:
+                st.download_button(
+                    label="📊 Логи генерации (.csv)",
+                    data=f,
+                    file_name="generation_logs.csv",
+                    mime="text/csv",
+                    use_container_width=True
+                )
+                
+        if os.path.exists("registered_users.csv"):
+            with open("registered_users.csv", "rb") as f:
+                st.download_button(
+                    label="👥 База пользователей (.csv)",
+                    data=f,
+                    file_name="registered_users.csv",
+                    mime="text/csv",
+                    use_container_width=True
+                )
 
 # ------------ Нижний колонтитул ------------
-fc  = "#7b96b8" if st.session_state.theme == "dark" else "#555"
-flk = "#58a6ff"  if st.session_state.theme == "dark" else "#0969da"
 st.markdown("---")
 st.markdown(
-    f'<div style="text-align:center;font-size:12px;color:{fc};padding:12px 0 20px 0;line-height:2.2;">'
+    f'<div style="text-align:center;font-size:12px;color:gray;padding:12px 0 20px 0;line-height:2.2;">'
     f'<b style="font-size:13px;">© 2025 {l["f_author"]}</b><br>'
-    f'📧 <a href="mailto:samarkhanov_kb@enu.kz" style="color:{flk};text-decoration:none;">samarkhanov_kb@enu.kz</a>'
+    f'📧 <a href="mailto:samarkhanov_kb@enu.kz" style="text-decoration:none;">samarkhanov_kb@enu.kz</a>'
     f'&nbsp;·&nbsp;'
-    f'<a href="mailto:kanat.baurzhanuly@gmail.com" style="color:{flk};text-decoration:none;">kanat.baurzhanuly@gmail.com</a><br>'
+    f'<a href="mailto:kanat.baurzhanuly@gmail.com" style="text-decoration:none;">kanat.baurzhanuly@gmail.com</a><br>'
     f'🏛️ <a href="https://fns.enu.kz/kz/page/departments/physical-and-economical-geography/faculty-members"'
-    f'     target="_blank" style="color:{flk};text-decoration:none;">{l["f_univ"]}</a><br>'
-    f'📄 {l["f_license"]}:&nbsp;'
-    f'<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color:{flk};text-decoration:none;">'
-    f'CC BY 4.0 — Creative Commons Attribution 4.0 International</a>'
+    f'     target="_blank" style="text-decoration:none;">{l["f_univ"]}</a><br>'
+    f'📄 {l["f_license"]}: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="text-decoration:none;">CC BY 4.0</a>'
     f'</div>',
     unsafe_allow_html=True)
