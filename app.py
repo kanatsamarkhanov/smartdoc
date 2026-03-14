@@ -218,15 +218,15 @@ hr { border-color: #1e3a5f !important; }
 
 /* Обычные активные поля ввода (Светящийся контур как на скриншоте 2) */
 input, textarea, [data-baseweb="select"] > div {
-    background-color: #0d1b2e !important;
+    background-color: #172a45 !important;
     color: #e2edf7 !important;
-    border: 1px solid #3b82f6 !important;
-    box-shadow: 0 0 6px rgba(59, 130, 246, 0.6) !important;
+    border: 1px solid #2e5cb8 !important;
+    box-shadow: 0 0 3px rgba(46, 92, 184, 0.4) !important;
     border-radius: 6px !important;
 }
 input:focus, textarea:focus, [data-baseweb="select"] > div:focus-within {
-    border: 1px solid #60a5fa !important;
-    box-shadow: 0 0 10px rgba(96, 165, 250, 0.9) !important;
+    border: 1px solid #4a86e8 !important;
+    box-shadow: 0 0 6px rgba(74, 134, 232, 0.6) !important;
 }
 
 /* ЗАБЛОКИРОВАННЫЕ поля в ночном режиме (без свечения) */
