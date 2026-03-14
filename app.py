@@ -337,9 +337,9 @@ css_core = f"""
 * {{ font-family: {selected_css_font} !important; }}
 
 /* SMALLER TITLES */
-h1 {{ font-size: 1.6rem !important; margin-bottom: 0.2rem !important; }}
-h2 {{ font-size: 1.3rem !important; margin-bottom: 0.3rem !important; }}
-h3 {{ font-size: 1.1rem !important; margin-bottom: 0.2rem !important; }}
+h1 {{ font-size: 1.55rem !important; margin-bottom: 0.1rem !important; }}
+h2 {{ font-size: 1.25rem !important; margin-bottom: 0.2rem !important; }}
+h3 {{ font-size: 1.05rem !important; margin-bottom: 0.15rem !important; }}
 
 /* MAIN CONTAINER WIDTH */
 .block-container {{
@@ -354,7 +354,7 @@ h3 {{ font-size: 1.1rem !important; margin-bottom: 0.2rem !important; }}
 [data-testid="stFileUploadDropzone"] {{
     border: 2px dashed #6aa5ff !important;
     border-radius: 14px !important;
-    padding: 20px !important;
+    padding: 18px !important;
     transition: all 0.2s ease;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
 }}
@@ -374,15 +374,14 @@ h3 {{ font-size: 1.1rem !important; margin-bottom: 0.2rem !important; }}
 }}
 
 [data-testid="stFileUploadDropzone"] > div > svg {{ display: none !important; }}
-
-[data-testid="stFileUploadDropzone"]::before {{ content:"📂"; font-size:30px; display:block; margin-bottom:5px; text-align: center; }}
+[data-testid="stFileUploadDropzone"]::before {{ content:"📂"; font-size:28px; display:block; margin-bottom:4px; text-align: center; }}
 
 [data-testid="stFileUploadDropzone"] div[data-testid="stText"]::after {{
-    content: "{l['drag_drop']}"; font-size: 13px !important; color: #888888 !important; display: block; white-space: pre-wrap; margin-top: 5px;
+    content: "{l['drag_drop']}"; font-size: 12px !important; color: #888888 !important; display: block; white-space: pre-wrap; margin-top: 5px;
 }}
 
 /* -------------------------------- */
-/* COMPACT UPLOAD BUTTONS */
+/* COMPACT UPLOAD BUTTONS (STYLE FROM SCREENSHOT) */
 /* -------------------------------- */
 div.element-container:has(.compact-uploader) {{ display: none !important; }}
 div.element-container:has(.compact-uploader) + div.element-container [data-testid="stFileUploadDropzone"] {{
@@ -400,6 +399,7 @@ button[kind="primary"] {{
     background: linear-gradient(90deg, #1d4ed8, #3b82f6) !important;
     color: white !important; border: none !important; border-radius: 10px !important;
     padding: 10px 20px !important; font-weight: bold !important; transition: all 0.2s ease !important;
+    box-shadow: 0 2px 5px rgba(29, 78, 216, 0.2) !important;
 }}
 button[kind="primary"]:hover {{
     background: linear-gradient(90deg, #1e40af, #2563eb) !important;
@@ -409,25 +409,32 @@ button[kind="primary"]:hover {{
 /* -------------------------------- */
 /* INFO CARDS */
 /* -------------------------------- */
-.info-card {{ border-radius:14px; padding:16px; margin-bottom:12px; box-shadow:0 2px 6px rgba(0,0,0,0.05); }}
-.info-card-title {{ font-weight:700; font-size:15px; margin-bottom:4px; }}
-.info-card-text {{ font-size:13px; line-height:1.4; }}
+.info-card {{ border-radius:14px; padding:15px; margin-bottom:10px; box-shadow:0 2px 6px rgba(0,0,0,0.04); }}
+.info-card-title {{ font-weight:700; font-size:14px; margin-bottom:4px; }}
+.info-card-text {{ font-size:12.5px; line-height:1.4; }}
 
 /* Segmented Control */
 div[data-testid="stRadio"] div[role="radiogroup"] {{ border-radius: 20px !important; padding: 4px !important; gap: 4px !important; }}
-div[data-testid="stRadio"] div[role="radiogroup"] label {{ padding: 6px 20px !important; border-radius: 16px !important; font-size:14px !important; }}
+div[data-testid="stRadio"] div[role="radiogroup"] label {{ padding: 6px 20px !important; border-radius: 16px !important; font-size:13.5px !important; }}
 </style>
 """
 
 light_css = css_core + """
 <style>
-/* LIGHT BLUE SCHEME - NO BLACKS/DARK GREYS */
-.stApp { background: #f0f8ff !important; }
+/* DAY MODE (LIGHT BLUE) - MATCHING SCREENSHOT */
+.stApp { background: #f4f9ff !important; }
 h1, h2, h3, h4, h5, h6 { color: #0c335e !important; }
 p, span, label, div, li { color: #1e3a5f !important; }
 
+/* Non-primary buttons style from screenshot (White bg, blue border/text) */
 .stButton>button:not([kind="primary"]) {
-    background: #e1f0ff !important; color: #0c335e !important; border: 1px solid #b6d4f0 !important;
+    background: #ffffff !important; 
+    color: #1d4ed8 !important; 
+    border: 1px solid #cbdff2 !important;
+}
+.stButton>button:not([kind="primary"]):hover {
+    background: #f0f7ff !important;
+    border-color: #3b82f6 !important;
 }
 
 [data-testid="stFileUploadDropzone"] { background: #ffffff !important; border-color: #8bb4e5 !important; }
@@ -435,29 +442,33 @@ p, span, label, div, li { color: #1e3a5f !important; }
 .info-card-title { color: #0c335e !important; }
 .info-card-text { color: #4b6a90 !important; }
 
-/* Inputs */
-input, textarea, [data-baseweb="select"] { background-color: #ffffff !important; color: #1e3a5f !important; border: 1px solid #cbdff2 !important; }
+/* Inputs (White background for clarity) */
+input, textarea, [data-baseweb="select"] { 
+    background-color: #ffffff !important; 
+    color: #1e3a5f !important; 
+    border: 1px solid #cbdff2 !important; 
+}
 
 /* Sidebar */
-section[data-testid="stSidebar"] { background-color: #f0f8ff !important; }
+section[data-testid="stSidebar"] { background-color: #f4f9ff !important; }
 </style>
 """
 
 dark_css = css_core + """
 <style>
-/* OCEAN BLUE SCHEME - NO BLACKS */
-.stApp { background: #1e3a5f !important; }
+/* DARK MODE (OCEAN BLUE) - NO BLACKS */
+.stApp { background: #1a314d !important; }
 h1, h2, h3, h4, h5, h6 { color: #d0e8ff !important; }
 p, span, label, div, li { color: #e1f0ff !important; }
 
-[data-testid='block-container'], section[data-testid='stSidebar'] { background-color: #1e3a5f !important; }
+[data-testid='block-container'], section[data-testid='stSidebar'] { background-color: #1a314d !important; }
 
 .stButton>button:not([kind="primary"]) {
     background: #2a528a !important; color: #ffffff !important; border: 1px solid #4a90e2 !important;
 }
 
 [data-testid="stFileUploadDropzone"] { background: #254b7c !important; border-color: #4ea1ff !important; }
-.info-card { background: linear-gradient(180deg, #2a528a, #1e3a5f) !important; border: 1px solid #4a90e2 !important; }
+.info-card { background: linear-gradient(180deg, #2a528a, #1a314d) !important; border: 1px solid #4a90e2 !important; }
 .info-card-title { color: #d0e8ff !important; }
 .info-card-text { color: #b6d4f0 !important; }
 
@@ -465,7 +476,7 @@ p, span, label, div, li { color: #e1f0ff !important; }
 input, textarea, [data-baseweb="select"] { background-color: #2a528a !important; color: #ffffff !important; border: 1px solid #4a90e2 !important; }
 
 /* Segmented */
-div[data-testid="stRadio"] div[role="radiogroup"] { background-color: #1a314d !important; }
+div[data-testid="stRadio"] div[role="radiogroup"] { background-color: #112233 !important; }
 div[data-testid="stRadio"] div[role="radiogroup"] label:has(div[aria-checked="true"]) { background-color: #3b82f6 !important; color: #ffffff !important; }
 </style>
 """
@@ -476,8 +487,7 @@ st.markdown(dark_css if st.session_state.theme == "dark" else light_css, unsafe_
 if not st.session_state.is_registered:
     st.markdown("<style>section[data-testid='stSidebar'] {display:none;}</style>", unsafe_allow_html=True)
 
-# ----------------- HEADER (LAYOUT UPDATED) -----------------
-# Title on top, buttons moved lower in separate columns
+# ----------------- HEADER -----------------
 st.title(l["title"])
 st.caption(l["subtitle"])
 
@@ -518,12 +528,6 @@ def create_sample_docx(section_title):
     p = doc.add_paragraph(f"Content for {section_title}..."); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     bio = BytesIO(); doc.save(bio); return bio.getvalue()
 
-def log_registration(name, email, phone, org, pos):
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    row = [timestamp, name, email, phone, org, pos]
-    # In a real app, this would append to a CSV or DB
-    pass
-
 # ----------------- LIVE PREVIEW UPLOADER -----------------
 def render_live_uploader(label, key, loc_preview, is_locked):
     f = st.file_uploader(label, type=["txt", "docx"], disabled=is_locked, key=key)
@@ -531,7 +535,7 @@ def render_live_uploader(label, key, loc_preview, is_locked):
         text = extract_text(f); wc = count_wc(text)
         with st.expander(f"👀 {loc_preview} ({wc})", expanded=True):
             bg = "#2a528a" if st.session_state.theme == "dark" else "#ffffff"
-            st.markdown(f"<div style='max-height:150px; overflow-y:auto; font-size:12px; padding:10px; background:{bg}; border:1px solid #4a90e2; border-radius:8px;'>{text}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='max-height:140px; overflow-y:auto; font-size:12px; padding:10px; background:{bg}; border:1px solid #4a90e2; border-radius:8px;'>{text}</div>", unsafe_allow_html=True)
     return f
 
 # ----------------- NAVIGATION -----------------
@@ -553,8 +557,7 @@ if app_mode == l["nav_gen"]:
     with col_s2: section = st.selectbox(l["lbl_sec"], ["Химия", "География"], disabled=is_locked)
     with col_s3: paper_type = st.selectbox(l["lbl_type"], ["Статья (Article)", "Обзор (Review)"], disabled=is_locked)
     with col_s4: mrnti = st.text_input(l["lbl_mrnti"], value="06.81.23", disabled=is_locked)
-    with col_s5: 
-        st.selectbox(l["lbl_ui_font"], list(font_mapping.keys()), key="ui_font_select")
+    with col_s5: st.selectbox(l["lbl_ui_font"], list(font_mapping.keys()), key="ui_font_select")
 
     st.header(l["sec_meta"])
     col1, col2 = st.columns(2)
@@ -566,10 +569,9 @@ if app_mode == l["nav_gen"]:
         corr_email = st.text_input(l["lbl_email"], disabled=is_locked)
 
     st.header(l["sec_text"])
-    abstract = st.text_area(l["lbl_abstract"], height=120, disabled=is_locked)
+    abstract = st.text_area(l["lbl_abstract"], height=110, disabled=is_locked)
     keywords = st.text_input(l["lbl_kw"], disabled=is_locked)
 
-    # IMRAD UPLOADERS
     col_i1, col_i2, col_i3 = st.columns(3)
     with col_i1:
         file_intro = render_live_uploader(l["lbl_intro"], "up_intro", l["preview"], is_locked)
@@ -580,7 +582,6 @@ if app_mode == l["nav_gen"]:
     with col_i3:
         file_conclusion = render_live_uploader(l["lbl_conclusion"], "up_conc", l["preview"], is_locked)
 
-    # FIGURES & TABLES (Simplified for UI view)
     col_ft1, col_ft2 = st.columns(2)
     with col_ft1:
         st.header(l["lbl_fig_manager"])
@@ -591,15 +592,14 @@ if app_mode == l["nav_gen"]:
         st.markdown(f"<div class='info-card'><div class='info-card-title'>{l['lbl_tab_hint_title']}</div><div class='info-card-text'>{l['lbl_tab_hint_text']}</div></div>", unsafe_allow_html=True)
         st.button(l["lbl_add_tab"], disabled=is_locked)
 
-    # PROGRESS BAR CALCULATION
     if not is_locked:
         tracked = [title, authors, affiliations, abstract, keywords, file_intro, file_methods, file_results, file_discussion, file_conclusion]
         pct = int((sum(bool(f) for f in tracked) / len(tracked)) * 100)
-        p_color = "#3b82f6"; t_bg = "#1a314d" if st.session_state.theme == "dark" else "#e0efff"
+        p_color = "#3b82f6"; t_bg = "#112233" if st.session_state.theme == "dark" else "#e0efff"
         progress_placeholder.markdown(f"""
         <div class="info-card" style="margin-bottom: 20px;">
             <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                <span style="font-weight:700; font-size:14px;">{l['prog_title']}</span>
+                <span style="font-weight:700; font-size:13px;">{l['prog_title']}</span>
                 <span style="font-weight:700;">{pct}%</span>
             </div>
             <div style="background:{t_bg}; border-radius:10px; height:8px; width:100%;"><div style="background:{p_color}; height:100%; width:{pct}%; border-radius:10px;"></div></div>
@@ -627,12 +627,12 @@ elif app_mode == l["nav_reg"]:
                     st.session_state.is_registered = True
                     safe_rerun()
 
-# ----------------- FEEDBACK SECTION (OPEN BY DEFAULT) -----------------
+# ----------------- FEEDBACK SECTION (OPEN) -----------------
 st.markdown("---")
 st.subheader(l["fb_header"])
 with st.form("feedback_form", clear_on_submit=True):
     fb_email = st.text_input("Email (Optional)")
-    fb_text = st.text_area(l["fb_text"], height=100)
+    fb_text = st.text_area(l["fb_text"], height=80)
     if st.form_submit_button(l["fb_btn"]):
         st.success(l["fb_succ"])
 
