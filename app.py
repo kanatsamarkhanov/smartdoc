@@ -15,6 +15,14 @@ import tempfile
 import subprocess
 import time
 
+# ----------------- СОВМЕСТИМОСТЬ ПЕРЕЗАГРУЗКИ -----------------
+def safe_rerun():
+    """Умная функция перезагрузки для совместимости с любыми версиями Streamlit"""
+    if hasattr(st, "rerun"):
+        st.rerun()
+    elif hasattr(st, "experimental_rerun"):
+        st.experimental_rerun()
+
 # ----------------- PAGE & SESSION -----------------
 st.set_page_config(page_title="Smart Paper Generator", page_icon="📝", layout="wide")
 
@@ -524,21 +532,25 @@ def convert_to_pdf(docx_path, pdf_path):
 with st.sidebar:
     st.markdown(f"### {l['sidebar_lang']}")
     col_f1, col_f2, col_f3 = st.columns(3)
+
     if col_f1.button("🇰🇿", use_container_width=True):
         st.session_state.lang = "kz"
-        st.experimental_rerun()
+        safe_rerun()
+
     if col_f2.button("🇷🇺", use_container_width=True):
         st.session_state.lang = "ru"
-        st.experimental_rerun()
+        safe_rerun()
+
     if col_f3.button("🇬🇧", use_container_width=True):
         st.session_state.lang = "en"
-        st.experimental_rerun()
+        safe_rerun()
 
     st.markdown("---")
+
     _tbtn = l["btn_theme_light"] if st.session_state.theme == "dark" else l["btn_theme_dark"]
     if st.button(_tbtn, use_container_width=True):
         st.session_state.theme = "light" if st.session_state.theme == "dark" else "dark"
-        st.experimental_rerun()
+        safe_rerun()
     st.markdown("---")
 
 # ----------------- HEADER -----------------
@@ -584,7 +596,6 @@ if app_mode == l["nav_gen"]:
         mrnti = st.text_input(l["lbl_mrnti"], value="06.81.23",
                               disabled=is_locked)
     with col_s5:
-        # simple font selector kept, but only for internal logic if you want later
         font_mapping = {
             "System Default": "sans-serif",
             "Times New Roman": "'Times New Roman', Times, serif",
@@ -598,7 +609,7 @@ if app_mode == l["nav_gen"]:
         )
         if new_font != st.session_state.ui_font:
             st.session_state.ui_font = new_font
-            st.experimental_rerun()
+            safe_rerun()
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -714,7 +725,7 @@ if app_mode == l["nav_gen"]:
 
         if st.button(l["lbl_add_fig"], disabled=is_locked):
             st.session_state.fig_count += 1
-            st.experimental_rerun()
+            safe_rerun()
 
     with col_ft2:
         st.header(l["lbl_tab_manager"])
@@ -753,7 +764,7 @@ if app_mode == l["nav_gen"]:
 
         if st.button(l["lbl_add_tab"], disabled=is_locked):
             st.session_state.tab_count += 1
-            st.experimental_rerun()
+            safe_rerun()
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -780,7 +791,7 @@ if app_mode == l["nav_gen"]:
 
     if st.button(l["lbl_add_eq"], disabled=is_locked):
         st.session_state.eq_count += 1
-        st.experimental_rerun()
+        safe_rerun()
 
     # REFERENCES
     st.markdown("<hr>", unsafe_allow_html=True)
@@ -1103,7 +1114,7 @@ elif app_mode == l["nav_reg"]:
                     st.session_state.is_registered = True
                     st.session_state.go_to_gen = True
                     st.success(l["reg_success"])
-                    st.experimental_rerun()
+                    safe_rerun()
                 else:
                     st.error(l["reg_err_fill"])
 
