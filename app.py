@@ -2,6 +2,9 @@ import streamlit as st
 from docxtpl import DocxTemplate
 from io import BytesIO
 import re
+import csv
+import datetime
+import os
 
 # Беттің баптаулары (Настройка страницы)
 st.set_page_config(page_title="Smart Paper Generator", page_icon="📝", layout="wide")
@@ -44,6 +47,7 @@ locales = {
         "err_gen": "Произошла ошибка при генерации: ",
         "succ_gen": "✅ Документ успешно сгенерирован!",
         "btn_dl": "⬇️ Скачать .docx файл",
+        "btn_register": "📝 Регистрация в системе",
         "f_author": "Канат Самарханов / Kanat Samarkhanov",
         "f_license": "Лицензия",
         "f_univ": "ЕНУ им. Л.Н. Гумилева — Кафедра физической и экономической географии",
@@ -80,6 +84,7 @@ locales = {
         "err_gen": "Генерация кезінде қате пайда болды: ",
         "succ_gen": "✅ Құжат сәтті генерацияланды!",
         "btn_dl": "⬇️ .docx файлын жүктеп алу",
+        "btn_register": "📝 Жүйеге тіркелу",
         "f_author": "Канат Самарханов / Kanat Samarkhanov",
         "f_license": "Лицензия",
         "f_univ": "Л.Н. Гумилев атындағы ЕҰУ — Физикалық және экономикалық география кафедрасы",
@@ -116,6 +121,7 @@ locales = {
         "err_gen": "An error occurred during generation: ",
         "succ_gen": "✅ Document successfully generated!",
         "btn_dl": "⬇️ Download .docx file",
+        "btn_register": "📝 Register in the system",
         "f_author": "Kanat Samarkhanov",
         "f_license": "License",
         "f_univ": "L.N. Gumilyov ENU — Department of Physical and Economic Geography",
@@ -124,7 +130,7 @@ locales = {
 
 l = locales[st.session_state.lang]
 
-# ------------ CSS тақырыптары (CSS Темы) ------------
+# ------------ CSS Темы ------------
 dark_css = (
     "<style>"
     "html,body,[class*='css'],.stApp{background-color:#0d1b2e !important;color:#c9d8ee !important;"
@@ -151,17 +157,49 @@ dark_css = (
     "</style>"
 )
 
+# Light CSS updated to force a white background and dark text natively
 light_css = (
     "<style>"
-    "h1,h2,h3{color:#1a3a5c;}"
-    "[data-testid='stDownloadButton']>button{background-color:#2ea043;color:#fff;border-radius:6px;}"
+    "html,body,[class*='css'],.stApp{background-color:#ffffff !important;color:#1a3a5c !important;"
+    "font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif !important;}"
+    "h1,h2,h3,h4,h5,h6,[data-testid='stMarkdownContainer'] h1,[data-testid='stMarkdownContainer'] h2,"
+    "[data-testid='stMarkdownContainer'] h3{color:#0d1b2e !important;font-weight:600 !important;}"
+    "p,span,label,div,li,[data-testid='stMarkdownContainer'] p,"
+    "[data-testid='stCaptionContainer'],.stCaption{color:#1a3a5c !important;}"
+    "[data-testid='block-container'],[data-testid='stVerticalBlock'],"
+    "section[data-testid='stSidebar']{background-color:#f8f9fa !important;}"
+    "input,textarea,select{background-color:#ffffff !important;color:#000000 !important;"
+    "border:1px solid #d0d7de !important;}"
+    "[data-testid='stSelectbox']>div>div{background-color:#ffffff !important;"
+    "border:1px solid #d0d7de !important;border-radius:6px !important;color:#000000 !important;}"
+    "[data-testid='stDownloadButton']>button{background-color:#2ea043 !important;color:#fff !important;border-radius:6px !important;}"
     "</style>"
 )
 
-# CSS стильдерін қолдану (Применение CSS стилей)
+# Применение CSS стилей
 st.markdown(dark_css if st.session_state.theme == "dark" else light_css, unsafe_allow_html=True)
 
-# ------------ Тақырып (Заголовок) ------------
+# Функция для записи логов (Функция для записи логов генерации)
+def log_generation_to_file(title_text, authors_text, lang):
+    log_file = "generation_logs.csv"
+    file_exists = os.path.isfile(log_file)
+    
+    try:
+        with open(log_file, mode='a', encoding='utf-8', newline='') as f:
+            writer = csv.writer(f)
+            # Если файл только создан, пишем заголовки
+            if not file_exists:
+                writer.writerow(["Timestamp", "Language", "Title", "Authors"])
+            
+            # Записываем данные о генерации
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            writer.writerow([timestamp, lang, title_text, authors_text])
+    except Exception as e:
+        # Игнорируем ошибки записи, чтобы не ломать генерацию для пользователя
+        pass
+
+
+# ------------ Заголовок ------------
 hc1, hc2, hc3 = st.columns([6, 1.8, 1.8])
 with hc1:
     st.title(l["title"])
@@ -186,8 +224,12 @@ with hc3:
 st.markdown("---")
 
 
-# ------------ Бүйірлік тақта (Боковая панель) ------------
+# ------------ Боковая панель ------------
 with st.sidebar:
+    # Кнопка регистрации (Link Button for Registration)
+    st.link_button(l["btn_register"], "https://gsenconsult.org/register", use_container_width=True)
+    st.markdown("---")
+    
     st.header(l["sidebar_title"])
     
     primary_lang = st.selectbox(
@@ -208,7 +250,7 @@ with st.sidebar:
     mrnti = st.text_input(l["lbl_mrnti"], value="06.81.23")
 
 
-# ------------ Негізгі формалар (Основные формы) ------------
+# ------------ Основные формы ------------
 st.header(l["sec_meta"])
 col1, col2 = st.columns(2)
 
@@ -235,11 +277,11 @@ main_text = st.text_area(l["lbl_main"], height=300)
 references = st.text_area(l["lbl_refs"], height=200)
 
 
-# ------------ Аудармалар (Переводы) ------------
+# ------------ Переводы ------------
 st.header(l["sec_trans"])
 st.info(l["trans_info"])
 
-# Тілдер логикасы (Логика языков)
+# Логика языков
 trans_langs = ["Русский", "Қазақша", "English"]
 if primary_lang in trans_langs:
     trans_langs.remove(primary_lang)
@@ -261,7 +303,7 @@ with col_t2:
     t2_keywords = st.text_input(f"{l['lbl_kw']} ({trans_langs[1]})")
 
 
-# ------------ Генерациялау (Генерация) ------------
+# ------------ Генерация ------------
 st.markdown("---")
 generate_btn = st.button(l["gen_btn"], type="primary", use_container_width=True)
 
@@ -272,7 +314,7 @@ if generate_btn:
         st.warning(l["err_fill_req"])
     else:
         try:
-            # Үлгіні таңдау (Выбор шаблона)
+            # Выбор шаблона
             template_filename = "Russian_template_2025.docx" 
             if primary_lang == "Русский":
                 template_filename = "Russian_template_2025.docx"
@@ -281,7 +323,7 @@ if generate_btn:
             elif primary_lang == "English":
                 template_filename = "English_template_2025.docx"
                 
-            # Сөздік құру (Создание словаря)
+            # Создание словаря
             context = {
                 'mrnti': mrnti,
                 'section': section,
@@ -304,7 +346,7 @@ if generate_btn:
                 't2_keywords': t2_keywords
             }
             
-            # Файлды жасау (Создание файла)
+            # Создание файла
             doc = DocxTemplate(template_filename)
             doc.render(context)
             
@@ -313,6 +355,9 @@ if generate_btn:
             
             st.success(l["succ_gen"])
             st.balloons()
+            
+            # Сохранение лога в CSV файл
+            log_generation_to_file(title, authors, primary_lang)
             
             st.download_button(
                 label=l["btn_dl"],
@@ -326,7 +371,21 @@ if generate_btn:
             st.info("💡 Ескерту: Генерация дұрыс жұмыс істеуі үшін, 'Russian_template_2025.docx', 'Kazakh_template_2025.docx' және 'English_template_2025.docx' деген файлдар app.py орналасқан бумада болуы тиіс.")
 
 
-# ------------ Төменгі колонтитул (Нижний колонтитул) ------------
+# Кнопка скачивания логов для администратора (Показывается только если файл существует)
+with st.sidebar:
+    if os.path.exists("generation_logs.csv"):
+        st.markdown("---")
+        with open("generation_logs.csv", "rb") as f:
+            st.download_button(
+                label="📊 Скачать логи генерации (Admin)",
+                data=f,
+                file_name="generation_logs.csv",
+                mime="text/csv",
+                use_container_width=True
+            )
+
+
+# ------------ Нижний колонтитул ------------
 fc  = "#7b96b8" if st.session_state.theme == "dark" else "#555"
 flk = "#58a6ff"  if st.session_state.theme == "dark" else "#0969da"
 st.markdown("---")
