@@ -11,10 +11,8 @@ import io
 import pandas as pd
 import docx
 
-# Беттің баптаулары
 st.set_page_config(page_title="Smart Paper Generator", page_icon="📝", layout="wide")
 
-# Сессия күйлерін бастау
 if "lang" not in st.session_state:
     st.session_state.lang = "kz"
 if "theme" not in st.session_state:
@@ -22,7 +20,6 @@ if "theme" not in st.session_state:
 if "is_registered" not in st.session_state:
     st.session_state.is_registered = False
 
-# Аудармалар сөздігі
 locales = {
     "ru": {
         "title": "📝 Умный генератор научных статей",
@@ -190,7 +187,6 @@ locales = {
 
 l = locales[st.session_state.lang]
 
-# ------------ CSS Дизайн ------------
 light_css = """
 <style>
 .stApp { background-color: #ffffff !important; }
@@ -226,11 +222,48 @@ button[kind="primary"]:hover {
     border-color: #1e40af !important;
     box-shadow: 0 0 8px rgba(37, 99, 235, 0.4) !important;
 }
-/* Тік сызықтарды алып тастау (Remove vertical lines in buttons) */
+div[data-testid="stRadio"] {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+div[data-testid="stRadio"] div[role="radiogroup"] {
+    background-color: #f1f3f4 !important;
+    border-radius: 20px !important;
+    padding: 4px !important;
+    display: inline-flex !important;
+    gap: 4px !important;
+    flex-direction: row !important;
+    border: none !important;
+}
 div[data-testid="stRadio"] div[role="radiogroup"] label {
+    background-color: transparent !important;
+    padding: 8px 24px !important;
+    border-radius: 16px !important;
+    margin: 0 !important;
+    color: #5f6368 !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
     border: none !important;
     box-shadow: none !important;
-    background: transparent !important;
+    transition: all 0.2s ease-in-out;
+}
+div[data-testid="stRadio"] div[role="radiogroup"] label:hover {
+    background-color: rgba(0,0,0,0.05) !important;
+}
+div[data-testid="stRadio"] div[role="radiogroup"] label p {
+    color: inherit !important;
+    font-weight: inherit !important;
+    margin: 0 !important;
+}
+div[data-testid="stRadio"] div[role="radio"] {
+    display: none !important;
+}
+div[data-testid="stRadio"] div[role="radiogroup"] label:has(div[aria-checked="true"]) {
+    background-color: #ffffff !important;
+    color: #1a1a1a !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+    font-weight: 600 !important;
 }
 </style>
 """
@@ -272,11 +305,48 @@ button[kind="primary"]:hover {
     border-color: #3b82f6 !important;
     box-shadow: 0 0 8px rgba(59, 130, 246, 0.6) !important;
 }
-/* Тік сызықтарды алып тастау (Remove vertical lines in buttons) */
+div[data-testid="stRadio"] {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+div[data-testid="stRadio"] div[role="radiogroup"] {
+    background-color: #0b1727 !important;
+    border-radius: 20px !important;
+    padding: 4px !important;
+    display: inline-flex !important;
+    gap: 4px !important;
+    flex-direction: row !important;
+    border: 1px solid #1e3a5f !important;
+}
 div[data-testid="stRadio"] div[role="radiogroup"] label {
+    background-color: transparent !important;
+    padding: 8px 24px !important;
+    border-radius: 16px !important;
+    margin: 0 !important;
+    color: #7b96b8 !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
     border: none !important;
     box-shadow: none !important;
-    background: transparent !important;
+    transition: all 0.2s ease-in-out;
+}
+div[data-testid="stRadio"] div[role="radiogroup"] label:hover {
+    background-color: rgba(255,255,255,0.05) !important;
+}
+div[data-testid="stRadio"] div[role="radiogroup"] label p {
+    color: inherit !important;
+    font-weight: inherit !important;
+    margin: 0 !important;
+}
+div[data-testid="stRadio"] div[role="radio"] {
+    display: none !important;
+}
+div[data-testid="stRadio"] div[role="radiogroup"] label:has(div[aria-checked="true"]) {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3) !important;
+    font-weight: 600 !important;
 }
 </style>
 """
@@ -284,7 +354,6 @@ div[data-testid="stRadio"] div[role="radiogroup"] label {
 st.markdown(dark_css if st.session_state.theme == "dark" else light_css, unsafe_allow_html=True)
 
 
-# ------------ Автоматты жүктеу ------------
 def auto_download(bio, filename):
     b64 = base64.b64encode(bio.getvalue()).decode()
     custom_html = f"""
@@ -296,7 +365,6 @@ def auto_download(bio, filename):
     components.html(custom_html, height=0)
 
 
-# ------------ Мәтінді шығару (IMRAD файлдарынан) ------------
 def extract_text(uploaded_file):
     if not uploaded_file:
         return ""
@@ -311,7 +379,6 @@ def extract_text(uploaded_file):
     return ""
 
 
-# ------------ GitHub API Интеграциясы ------------
 def append_to_github_csv(filename, row_data, header_data):
     try:
         github_token = st.secrets["GITHUB_TOKEN"]
@@ -370,7 +437,6 @@ def log_registration(name, email, phone, org, pos):
     append_to_github_csv("registered_users.csv", row, header)
 
 
-# ------------ Басты Тақырып ------------
 hc1, hc2, hc3 = st.columns([6, 1.8, 1.8])
 with hc1:
     st.title(l["title"])
@@ -413,9 +479,6 @@ st.markdown("---")
 
 is_locked = not st.session_state.is_registered
 
-# ==========================================
-# РЕЖИМ: ГЕНЕРАТОР (МАҚАЛА ЖАСАУ)
-# ==========================================
 if app_mode == l["nav_gen"]:
     if is_locked:
         st.error(l["reg_req_msg"], icon="🔒")
@@ -457,8 +520,7 @@ if app_mode == l["nav_gen"]:
             st.success(l["succ_abs_len"].format(count=abstract_word_count))
 
     keywords = st.text_input(l["lbl_kw"], help=l["lbl_kw_help"], disabled=is_locked)
-    
-    # --- IMRAD Файлдарды жүктеу (File Uploaders instead of Text Area) ---
+
     st.subheader("IMRAD: Файлдарды жүктеп алу (Upload files)")
     col_i1, col_i2 = st.columns(2)
     with col_i1:
@@ -468,7 +530,6 @@ if app_mode == l["nav_gen"]:
         file_results = st.file_uploader(l["lbl_results"], type=["txt", "docx"], disabled=is_locked)
         file_conclusion = st.file_uploader(l["lbl_conclusion"], type=["txt", "docx"], disabled=is_locked)
 
-    # --- Суреттер мен кестелер менеджері (Figure & Table Manager) ---
     st.header(l["lbl_fig_manager"])
     fig_df = pd.DataFrame(columns=["Type (Figure/Table)", "Number", "Caption", "In-text reference (e.g., Fig. 1)"])
     if not is_locked:
@@ -476,17 +537,15 @@ if app_mode == l["nav_gen"]:
     else:
         st.dataframe(fig_df, use_container_width=True)
 
-    # --- Әдебиеттер менеджері (Reference Manager) ---
     st.header(l["lbl_ref_manager"])
     ref_style = st.selectbox(l["lbl_ref_style"], ["GOST", "APA", "IEEE"], disabled=is_locked)
     ref_df = pd.DataFrame(columns=["Author(s)", "Year", "Title", "Journal/Publisher", "Volume/Pages"])
-    
+
     if not is_locked:
         edited_refs = st.data_editor(ref_df, num_rows="dynamic", use_container_width=True)
     else:
         st.dataframe(ref_df, use_container_width=True)
 
-    # --- Аудармалар ---
     st.header(l["sec_trans"])
     st.info(l["trans_info"])
 
@@ -519,14 +578,12 @@ if app_mode == l["nav_gen"]:
             st.warning(l["err_fill_req"])
         else:
             try:
-                # 1. Мәтіндерді жинақтау (Compile IMRAD text)
                 main_text_compiled = ""
                 if file_intro: main_text_compiled += "1. INTRODUCTION\n" + extract_text(file_intro) + "\n\n"
                 if file_methods: main_text_compiled += "2. MATERIALS AND METHODS\n" + extract_text(file_methods) + "\n\n"
                 if file_results: main_text_compiled += "3. RESULTS\n" + extract_text(file_results) + "\n\n"
                 if file_conclusion: main_text_compiled += "4. CONCLUSION\n" + extract_text(file_conclusion) + "\n\n"
-                
-                # 2. Суреттер мен кестелерді құрастыру (Compile Figures & Tables)
+
                 fig_text_compiled = ""
                 for _, row in edited_figs.iterrows():
                     c_type = str(row.get("Type (Figure/Table)", "")).strip()
@@ -534,11 +591,10 @@ if app_mode == l["nav_gen"]:
                     c_cap = str(row.get("Caption", "")).strip()
                     if c_cap and c_cap != "nan":
                         fig_text_compiled += f"{c_type} {c_num}. {c_cap}\n"
-                
+
                 if fig_text_compiled:
                     main_text_compiled += "\n\n--- FIGURES & TABLES ---\n" + fig_text_compiled
 
-                # 3. Әдебиеттер тізімін құрастыру (Compile References)
                 refs_compiled = []
                 for i, row in edited_refs.iterrows():
                     r_author = str(row.get("Author(s)", "")).strip()
@@ -546,19 +602,18 @@ if app_mode == l["nav_gen"]:
                     r_title = str(row.get("Title", "")).strip()
                     r_journal = str(row.get("Journal/Publisher", "")).strip()
                     r_vol = str(row.get("Volume/Pages", "")).strip()
-                    
+
                     if r_author == "nan" or not r_author: continue
-                    
+
                     if ref_style == "APA":
                         refs_compiled.append(f"{r_author} ({r_year}). {r_title}. {r_journal}, {r_vol}.")
                     elif ref_style == "IEEE":
                         refs_compiled.append(f"[{i+1}] {r_author}, \"{r_title},\" {r_journal}, {r_vol}, {r_year}.")
-                    else: # GOST
+                    else:
                         refs_compiled.append(f"{i+1}. {r_author} {r_title} // {r_journal}. - {r_year}. - {r_vol}.")
-                
+
                 final_references = "\n".join(refs_compiled)
 
-                # Шаблон таңдау
                 template_filename = "Russian_template_2025.docx"
                 if primary_lang == "Русский":
                     template_filename = "Russian_template_2025.docx"
@@ -615,9 +670,6 @@ if app_mode == l["nav_gen"]:
                     "💡 Ескерту: 'Russian_template_2025.docx', 'Kazakh_template_2025.docx' және 'English_template_2025.docx' файлдары бумада болуы тиіс."
                 )
 
-# ==========================================
-# РЕЖИМ: РЕГИСТРАЦИЯ (ТІРКЕЛУ)
-# ==========================================
 elif app_mode == l["nav_reg"]:
     st.header(l["reg_header"])
 
