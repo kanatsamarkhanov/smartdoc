@@ -26,7 +26,6 @@ locales = {
         "subtitle": "Вестник ЕНУ им. Л.Н. Гумилева · Химия / География · 2025",
         "btn_theme_dark": "🌙 Тёмная тема",
         "btn_theme_light": "☀️ Светлая тема",
-        "nav_title": "🧭 Навигация",
         "nav_gen": "📄 Генератор статей",
         "nav_reg": "👤 Регистрация",
         "sidebar_title": "⚙️ Настройки статьи",
@@ -64,7 +63,7 @@ locales = {
         "reg_pos": "Должность / Статус (например: Докторант)",
         "reg_submit": "Зарегистрироваться",
         "reg_success": "✅ Вы успешно зарегистрированы! Теперь вам доступен генератор статей.",
-        "reg_req_msg": "🔒 Для создания статьи необходимо заполнить форму регистрации. Перейдите в раздел «Регистрация» в боковом меню.",
+        "reg_req_msg": "🔒 Для создания статьи необходимо заполнить форму регистрации. Перейдите во вкладку «Регистрация» выше.",
         "f_author": "Канат Самарханов / Kanat Samarkhanov",
         "f_license": "Лицензия",
         "f_univ": "ЕНУ им. Л.Н. Гумилева — Кафедра физической и экономической географии",
@@ -74,7 +73,6 @@ locales = {
         "subtitle": "Л.Н. Гумилев атындағы ЕҰУ Хабаршысы · Химия / География · 2025",
         "btn_theme_dark": "🌙 Түнгі режим",
         "btn_theme_light": "☀️ Күндізгі режим",
-        "nav_title": "🧭 Навигация",
         "nav_gen": "📄 Мақала генераторы",
         "nav_reg": "👤 Тіркелу",
         "sidebar_title": "⚙️ Мақала баптаулары",
@@ -112,7 +110,7 @@ locales = {
         "reg_pos": "Қызметі / Мәртебесі (мысалы: Докторант)",
         "reg_submit": "Тіркелу",
         "reg_success": "✅ Сіз жүйеге сәтті тіркелдіңіз! Енді мақала генераторы қолжетімді.",
-        "reg_req_msg": "🔒 Мақала жасау үшін тіркелу формасын толтыру қажет. Бүйірлік мәзірдегі «Тіркелу» бөліміне өтіңіз.",
+        "reg_req_msg": "🔒 Мақала жасау үшін тіркелу формасын толтыру қажет. Жоғарыдағы «Тіркелу» бөліміне өтіңіз.",
         "f_author": "Канат Самарханов / Kanat Samarkhanov",
         "f_license": "Лицензия",
         "f_univ": "Л.Н. Гумилев атындағы ЕҰУ — Физикалық және экономикалық география кафедрасы",
@@ -122,7 +120,6 @@ locales = {
         "subtitle": "L.N. Gumilyov ENU Bulletin · Chemistry / Geography · 2025",
         "btn_theme_dark": "🌙 Dark mode",
         "btn_theme_light": "☀️ Light mode",
-        "nav_title": "🧭 Navigation",
         "nav_gen": "📄 Paper Generator",
         "nav_reg": "👤 Registration",
         "sidebar_title": "⚙️ Paper Settings",
@@ -160,7 +157,7 @@ locales = {
         "reg_pos": "Position / Status (e.g., PhD Student)",
         "reg_submit": "Register",
         "reg_success": "✅ You have successfully registered! The paper generator is now unlocked.",
-        "reg_req_msg": "🔒 To generate an article, you must complete the registration form. Please go to the 'Registration' section in the sidebar.",
+        "reg_req_msg": "🔒 To generate an article, you must complete the registration form. Please go to the 'Registration' tab above.",
         "f_author": "Kanat Samarkhanov",
         "f_license": "License",
         "f_univ": "L.N. Gumilyov ENU — Department of Physical and Economic Geography",
@@ -179,7 +176,7 @@ light_css = """
 p, span, label { color: #333333 !important; }
 hr { border-color: #e9ecef !important; }
 
-/* Обычные активные поля ввода (Светло-голубой фон как на скриншоте) */
+/* Активные ячейки ввода: Светло-голубой фон (Lightblue) */
 input, textarea, [data-baseweb="select"] > div {
     background-color: #eaf4fc !important;
     color: #1a3a5c !important;
@@ -191,7 +188,7 @@ input:focus, textarea:focus, [data-baseweb="select"] > div:focus-within {
     box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2) !important;
 }
 
-/* ЗАБЛОКИРОВАННЫЕ поля (до регистрации) - серые */
+/* ЗАБЛОКИРОВАННЫЕ ячейки (до регистрации): Серые */
 input[disabled], textarea[disabled], [data-baseweb="select"] > div[aria-disabled="true"] {
     background-color: #e9ecef !important;
     color: #6c757d !important;
@@ -199,37 +196,50 @@ input[disabled], textarea[disabled], [data-baseweb="select"] > div[aria-disabled
     border: 1px solid #dddddd !important;
 }
 
-/* Панели предупреждений и инфо (Alerts) */
-[data-testid="stAlert"] {
-    background-color: #f0f2f6 !important;
-    color: #333333 !important;
+/* ГЛАВНАЯ КНОПКА: Теплый зеленый (Warm Green) */
+button[kind="primary"] {
+    background-color: #7CB342 !important;
+    color: #ffffff !important;
+    border: 1px solid #689F38 !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+}
+button[kind="primary"]:hover {
+    background-color: #8BC34A !important;
+    border-color: #7CB342 !important;
+    box-shadow: 0 0 8px rgba(124, 179, 66, 0.6) !important;
+}
+
+/* Убрать случайные вертикальные линии в меню */
+div[data-testid="stRadio"] div[role="radiogroup"] label {
+    border-left: none !important;
 }
 </style>
 """
 
 dark_css = """
 <style>
-/* Основной фон и боковая панель для ночного режима */
+/* Основной фон для ночного режима */
 .stApp { background-color: #0d1b2e !important; }
 [data-testid="stSidebar"] { background-color: #0b1727 !important; border-right: 1px solid #1e3a5f !important; }
 [data-testid="stMarkdownContainer"] h1, [data-testid="stMarkdownContainer"] h2, [data-testid="stMarkdownContainer"] h3 { color: #e2edf7 !important; }
 p, span, label { color: #c9d8ee !important; }
 hr { border-color: #1e3a5f !important; }
 
-/* Обычные активные поля ввода (Светящийся контур как на скриншоте 2) */
+/* Активные ячейки ввода: Темно-синий фон и светящийся контур (Glowing blue) */
 input, textarea, [data-baseweb="select"] > div {
     background-color: #172a45 !important;
     color: #e2edf7 !important;
     border: 1px solid #2e5cb8 !important;
-    box-shadow: 0 0 3px rgba(46, 92, 184, 0.4) !important;
+    box-shadow: 0 0 4px rgba(46, 92, 184, 0.5) !important;
     border-radius: 6px !important;
 }
 input:focus, textarea:focus, [data-baseweb="select"] > div:focus-within {
     border: 1px solid #4a86e8 !important;
-    box-shadow: 0 0 6px rgba(74, 134, 232, 0.6) !important;
+    box-shadow: 0 0 8px rgba(74, 134, 232, 0.8) !important;
 }
 
-/* ЗАБЛОКИРОВАННЫЕ поля в ночном режиме (без свечения) */
+/* ЗАБЛОКИРОВАННЫЕ ячейки (до регистрации): Темные, без свечения */
 input[disabled], textarea[disabled], [data-baseweb="select"] > div[aria-disabled="true"] {
     background-color: #0b1727 !important;
     color: #7b96b8 !important;
@@ -238,11 +248,23 @@ input[disabled], textarea[disabled], [data-baseweb="select"] > div[aria-disabled
     box-shadow: none !important;
 }
 
-/* Панели предупреждений и инфо (Alerts) */
-[data-testid="stAlert"] {
-    background-color: #0f2340 !important;
-    color: #c9d8ee !important;
-    border: 1px solid #1e3a5f !important;
+/* ГЛАВНАЯ КНОПКА: Теплый зеленый (Warm Green) */
+button[kind="primary"] {
+    background-color: #7CB342 !important;
+    color: #ffffff !important;
+    border: 1px solid #689F38 !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+}
+button[kind="primary"]:hover {
+    background-color: #8BC34A !important;
+    border-color: #7CB342 !important;
+    box-shadow: 0 0 8px rgba(124, 179, 66, 0.6) !important;
+}
+
+/* Убрать случайные вертикальные линии в меню */
+div[data-testid="stRadio"] div[role="radiogroup"] label {
+    border-left: none !important;
 }
 </style>
 """
@@ -252,7 +274,6 @@ st.markdown(dark_css if st.session_state.theme == "dark" else light_css, unsafe_
 
 # ------------ GitHub API Интеграциясы ------------
 def append_to_github_csv(filename, row_data, header_data):
-    # Streamlit Cloud құпия кілттерін оқу (Оқу орындалмаса, локальді сақтайды)
     try:
         github_token = st.secrets["GITHUB_TOKEN"]
         github_repo = st.secrets["GITHUB_REPO"]
@@ -265,7 +286,6 @@ def append_to_github_csv(filename, row_data, header_data):
             writer.writerow(row_data)
         return
 
-    # GitHub-қа жіберу логикасы
     url = f"https://api.github.com/repos/{github_repo}/contents/{filename}"
     headers = {"Authorization": f"token {github_token}"}
     
@@ -293,11 +313,13 @@ def append_to_github_csv(filename, row_data, header_data):
         
     requests.put(url, headers=headers, json=payload)
 
+
 def log_generation(title_text, authors_text, lang):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     row = [timestamp, lang, title_text, authors_text]
     header = ["Уақыты (Timestamp)", "Тіл (Language)", "Тақырып (Title)", "Авторлар (Authors)"]
     append_to_github_csv("generation_logs.csv", row, header)
+
 
 def log_registration(name, email, phone, org, pos):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -328,15 +350,18 @@ with hc3:
     if st.button(_tbtn, use_container_width=True):
         st.session_state.theme = "light" if st.session_state.theme == "dark" else "dark"
         st.rerun()
+
 st.markdown("---")
 
-# ------------ Навигация (Бүйірлік мәзір) ------------
-with st.sidebar:
-    st.header(l["nav_title"])
-    app_mode = st.radio("", [l["nav_gen"], l["nav_reg"]], label_visibility="collapsed")
-    st.markdown("---")
+# ------------ Навигация (Перенесена на главный экран для удобства на мобильных) ------------
+app_mode = st.radio(
+    "", 
+    [l["nav_gen"], l["nav_reg"]], 
+    horizontal=True, 
+    label_visibility="collapsed"
+)
+st.markdown("---")
 
-# Тіркелмеген жағдайда бұғаттау айнымалысы
 is_locked = not st.session_state.is_registered
 
 # ==========================================
@@ -347,12 +372,19 @@ if app_mode == l["nav_gen"]:
     if is_locked:
         st.error(l["reg_req_msg"], icon="🔒")
         
-    with st.sidebar:
-        st.header(l["sidebar_title"])
+    # Настройки статьи вынесены из бокового меню в основное окно (для мобильных)
+    st.subheader(l["sidebar_title"])
+    col_s1, col_s2, col_s3, col_s4 = st.columns(4)
+    with col_s1:
         primary_lang = st.selectbox(l["lbl_lang"], ["Русский", "Қазақша", "English"], disabled=is_locked)
+    with col_s2:
         section = st.selectbox(l["lbl_sec"], ["Химия", "География"], disabled=is_locked)
+    with col_s3:
         paper_type = st.selectbox(l["lbl_type"], ["Научная статья (Article)", "Обзор (Review)", "Мини-обзор (Mini-review)", "Краткое сообщение (Communication)"], disabled=is_locked)
+    with col_s4:
         mrnti = st.text_input(l["lbl_mrnti"], value="06.81.23", disabled=is_locked)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
 
     st.header(l["sec_meta"])
     col1, col2 = st.columns(2)
@@ -432,7 +464,6 @@ if app_mode == l["nav_gen"]:
                 st.success(l["succ_gen"])
                 st.balloons()
                 
-                # Журналды GitHub-қа немесе локальді файлға жазу
                 with st.spinner("Деректер сақталуда... (Сохранение логов)"):
                     log_generation(title, authors, primary_lang)
                 
@@ -461,7 +492,7 @@ elif app_mode == l["nav_reg"]:
         with st.form("registration_form"):
             r_name = st.text_input(l["reg_name"])
             r_email = st.text_input(l["reg_email"])
-            r_phone = st.text_input(l["reg_phone"]) # Телефон нөмірін сұрау қосылды
+            r_phone = st.text_input(l["reg_phone"])
             r_org = st.text_input(l["reg_org"])
             r_pos = st.text_input(l["reg_pos"])
             
@@ -476,6 +507,36 @@ elif app_mode == l["nav_reg"]:
                     st.rerun() 
                 else:
                     st.error("Аты-жөні, Email және Телефонды толтырыңыз. / Пожалуйста, заполните Имя, Email и Телефон.")
+
+
+# ==========================================
+# ПАНЕЛЬ АДМИНИСТРАТОРА (Скачивание файлов)
+# ==========================================
+with st.sidebar:
+    if os.path.exists("generation_logs.csv") or os.path.exists("registered_users.csv"):
+        st.markdown("<br><br><br>", unsafe_allow_html=True)
+        st.caption("🔒 Панель администратора")
+        
+        if os.path.exists("generation_logs.csv"):
+            with open("generation_logs.csv", "rb") as f:
+                st.download_button(
+                    label="📊 Логи генерации (.csv)",
+                    data=f,
+                    file_name="generation_logs.csv",
+                    mime="text/csv",
+                    use_container_width=True
+                )
+                
+        if os.path.exists("registered_users.csv"):
+            with open("registered_users.csv", "rb") as f:
+                st.download_button(
+                    label="👥 База пользователей (.csv)",
+                    data=f,
+                    file_name="registered_users.csv",
+                    mime="text/csv",
+                    use_container_width=True
+                )
+
 
 # ------------ Төменгі колонтитул (Footer) ------------
 st.markdown("---")
