@@ -1043,10 +1043,20 @@ if app_mode == l["nav_gen"]:
                                     disabled=is_locked)
 
     st.markdown("---")
-    generate_btn = st.button(l["gen_btn"], type="primary",
-                             use_container_width=True,
-                             disabled=is_locked)
+    generate_btn = st.button[kind="primary"] {
+    background: linear-gradient(135deg,#2563eb,#3b82f6) !important;
+    border-radius: 10px !important;
+    border: none !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    padding: 14px 22px !important;
+    transition: all 0.25s ease !important;
+    }
 
+    button[kind="primary"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(59,130,246,0.35);
+    }
     if generate_btn and not is_locked:
         if abstract_word_count > 300:
             st.error(l["err_abs_len"].format(count=abstract_word_count))
