@@ -423,19 +423,127 @@ div[data-testid="stRadio"] div[role="radiogroup"] label:has(div[aria-checked="tr
 </style>
 """
 
-light_css = css_core + """
+light_css = """
 <style>
-.stApp { background-color: #ffffff !important; }
-h1,h2,h3{color:#1a3a5c;}
-[data-testid='stDownloadButton']>button{background-color:#2ea043;color:#fff;border-radius:6px;}
-[data-testid='stDataFrame'],.stDataFrame iframe{border:1px solid #d0d7de;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+.stApp { background-color: #f4f8ff !important; }
 
-/* Segmented control specific light */
-div[data-testid="stRadio"] div[role="radiogroup"] { background-color: #f1f3f4 !important; border: none !important; }
-div[data-testid="stRadio"] div[role="radiogroup"] label { color: #5f6368 !important; }
-div[data-testid="stRadio"] div[role="radiogroup"] label:has(div[aria-checked="true"]) { background-color: #ffffff !important; color: #1a1a1a !important; box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important; font-weight: 600 !important; }
+[data-testid="stSidebar"] {
+  background-color: #eef3fb !important;
+  border-right: 1px solid #d0ddef !important;
+}
+
+/* ── ШРИФТЫ: тёмные ── */
+h1, h2, h3, h4, h5, h6,
+[data-testid="stMarkdownContainer"] h1,
+[data-testid="stMarkdownContainer"] h2,
+[data-testid="stMarkdownContainer"] h3 {
+  color: #0a1f3c !important;
+  font-weight: 700 !important;
+}
+
+p, span, li,
+[data-testid="stMarkdownContainer"] p,
+.stCaption, [data-testid="stCaptionContainer"] {
+  color: #1a2e4a !important;
+}
+
+label {
+  color: #0d2137 !important;
+  font-weight: 600 !important;
+}
+
+/* placeholder */
+input::placeholder, textarea::placeholder {
+  color: #7a94b0 !important;
+}
+
+/* inputs */
+input, textarea,
+[data-baseweb="select"] > div {
+  background-color: #ffffff !important;
+  color: #0d2137 !important;
+  border: 1px solid #b8cfe8 !important;
+  border-radius: 6px !important;
+}
+input:focus, textarea:focus,
+[data-baseweb="select"] > div:focus-within {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.2) !important;
+}
+input[disabled], textarea[disabled],
+[data-baseweb="select"] > div[aria-disabled="true"] {
+  background-color: #eef2f8 !important;
+  color: #6b82a0 !important;
+  -webkit-text-fill-color: #6b82a0 !important;
+}
+
+/* expander header */
+[data-testid="stExpander"] summary p {
+  color: #0d2137 !important;
+  font-weight: 600 !important;
+}
+
+/* alerts */
+[data-testid="stAlert"] p { color: #0a1f3c !important; }
+
+hr { border-color: #c8d8ec !important; }
+
+/* кнопки */
+button[kind="primary"] {
+  background: linear-gradient(90deg, #1d4ed8, #3b82f6) !important;
+  color: #ffffff !important;
+  border: 1px solid #1d4ed8 !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+}
+button[kind="primary"]:hover {
+  background: #1d4ed8 !important;
+  box-shadow: 0 0 8px rgba(59,130,246,0.4) !important;
+}
+
+[data-testid="stDownloadButton"] > button {
+  background-color: #166534 !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+}
+[data-testid="stDownloadButton"] > button:hover {
+  background-color: #15803d !important;
+}
+
+/* nav radio */
+div[data-testid="stRadio"] { display:flex; justify-content:center; margin-bottom:1rem; }
+div[data-testid="stRadio"] div[role="radiogroup"] {
+  background-color: #e8eef8 !important;
+  border-radius: 20px !important;
+  padding: 4px !important;
+  display: inline-flex !important;
+  gap: 4px !important;
+}
+div[data-testid="stRadio"] div[role="radiogroup"] label {
+  padding: 8px 24px !important;
+  border-radius: 16px !important;
+  color: #1a2e4a !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+}
+div[data-testid="stRadio"] div[role="radiogroup"] label:hover {
+  background-color: rgba(0,0,0,0.06) !important;
+}
+div[data-testid="stRadio"] div[role="radio"] { display: none !important; }
+div[data-testid="stRadio"] div[role="radiogroup"] label:has(div[aria-checked="true"]) {
+  background-color: #ffffff !important;
+  color: #0a1f3c !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.12) !important;
+  font-weight: 700 !important;
+}
+
+/* title block */
+.title-block h1 { font-size:1.5rem !important; margin:0 !important; color:#0a1f3c !important; }
+.title-block p  { font-size:0.85rem !important; margin:0 !important; color:#3a5a82 !important; }
 </style>
 """
+
 
 st.markdown(dark_css if st.session_state.theme == "dark" else light_css, unsafe_allow_html=True)
 
